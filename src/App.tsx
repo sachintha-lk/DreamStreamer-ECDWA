@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 
 import Login from "./pages/Login"
 import { DarkLightModeToggle } from "./components/dark-light-mode-toggle"
+import SignUp from "./pages/SignUp"
  
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<div>Home</div>} />
         <Route path="login" element={<Login />} />
-        
+        <Route path="signup" element={<SignUp />}/>
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </ThemeProvider>
