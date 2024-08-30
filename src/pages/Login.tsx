@@ -2,36 +2,42 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useAuth } from "@/context/AuthContext";
-import { FormEvent, useState } from "react";
-import {Link} from "react-router-dom"
+import { FormEvent, useEffect, useState } from "react";
+import {Link, useNavigate} from "react-router-dom"
 
 function Login() {
 
   const { signIn , user } = useAuth();
-  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard'); 
+    }
+  }, [user, navigate]);
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log(user);
+    // console.log(user);
     
     if (password == "") {
       return;
     }
-    signIn(email, password)
+    signIn(email, password).then((data) => {
+      // console.log(data);
+      // data.
+      navigate('/dashboard');
+
+    }).catch((err) => {
+      console.log(err);
+    });
     console.log(user);
     
-    // get the users jwt token
-    user?.getSession((err : Error, session: any) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      console.log(session.getIdToken().getJwtToken());
-    }
-    );
+ 
   };
     return (
         <div className="w-full lg:grid lg:h-screen lg:grid-cols-2">
@@ -57,7 +63,7 @@ function Login() {
                   <div className="grid gap-2">
                     <div className="flex items-center">
                       <Label htmlFor="password">Password</Label>
-                      <Link  to={"/forgot-password"}
+                      <Link  to={"/admin"}
                         className="ml-auto inline-block text-sm underline"
                       >
                         Forgot your password?
@@ -76,6 +82,8 @@ function Login() {
                   <Button variant="outline" className="w-full">
                     Login with Google
                   </Button>
+
+                 
                 </div>
               </form>
               <div className="mt-4 text-center text-sm">
@@ -84,6 +92,22 @@ function Login() {
                   Sign up
                 </Link>
               </div>
+              <Button variant="outline" className="w-full"
+                  onClick={() => {
+                    user?.getSession((err: Error, session: any) => {
+                          if (err) {
+                            console.error(err);
+                            alert(err);
+                            return;
+                          }
+                          console.log(session.getIdToken().getJwtToken());
+                          alert(session.getIdToken().getJwtToken());
+                        });
+                      }
+                    }
+                  >
+                    Check the user
+                  </Button>
             </div>
           </div>
           <div className="hidden lg:block lg:h-full lg:overflow-hidden">

@@ -1,16 +1,24 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {Link} from "react-router-dom"
-import { useState, FormEvent } from "react";
+import {Link, useNavigate} from "react-router-dom"
+import { useState, FormEvent, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-
 
 
 function SignUp() {
 
     const { signUp, user } = useAuth();
-    const [username, setUsername] = useState("");
+
+    const navigate = useNavigate();
+    useEffect(() => {
+      if (user) {
+        navigate('/dashboard'); 
+      }
+    }, [user, navigate]);
+
+
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -24,7 +32,12 @@ function SignUp() {
       if (password == "" || password != confirmPassword) {
         return;
       }
-      signUp(email, password, email)
+      signUp(name, password, email)
+        .then((data) => {
+          console.log(data);
+          navigate('/dashboard');
+
+      });
       console.log(user);
     };
 
@@ -39,12 +52,12 @@ function SignUp() {
 
               <div className="grid gap-4">
                   <div className="grid gap-2">
-                    <Label htmlFor="username">Username</Label>
+                    <Label htmlFor="name">Name</Label>
                     <Input
-                      id="username"
+                      id="name"
                       type="text"
                       required
-                      onChange={(event) => setUsername(event.target.value)}
+                      onChange={(event) => setName(event.target.value)}
                     />
                   </div>
                   <div className="grid gap-2">
@@ -78,6 +91,22 @@ function SignUp() {
                   </Button>
                   <Button variant="outline" className="w-full">
                     Login with Google
+                  </Button>
+                  <Button variant="outline" className="w-full"
+                  onClick={() => {
+                    user?.getSession((err: Error, session: any) => {
+                          if (err) {
+                            console.error(err);
+                            alert(err);
+                            return;
+                          }
+                          console.log(session.getIdToken().getJwtToken());
+                          alert(session.getIdToken().getJwtToken());
+                        });
+                      }
+                    }
+                  >
+                    Check the user
                   </Button>
                 </div>
                 </form>

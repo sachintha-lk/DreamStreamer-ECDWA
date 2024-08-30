@@ -1,10 +1,11 @@
 import { createContext, useContext } from 'react';
-import { CognitoUser } from 'amazon-cognito-identity-js';
+import { CognitoUser, CognitoUserSession, ISignUpResult } from 'amazon-cognito-identity-js';
 
 type State = {
   user: CognitoUser | null;
-  signUp: (name: string, password: string, email: string) => Promise<any>;
-  signIn: (username: string, password: string) => Promise<any>;
+  isAuthenticated: boolean;
+  signUp: (name: string, password: string, email: string) => Promise<Error | ISignUpResult>;
+  signIn: (username: string, password: string) => Promise<Error | CognitoUserSession>;
   signOut: () => void;
 };
 
