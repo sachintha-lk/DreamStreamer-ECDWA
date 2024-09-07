@@ -8,14 +8,14 @@ import { Toaster } from "@/components/ui/toaster"
 import ProtectedRoute from "./components/ProtectedRoute"
 import AdminRoute from "./components/AdminRoute"
 import RedirectIfAuthenticated from "./components/RedirectIfAuthenticated"
-
+import Dashboard from "./pages/Dashboard"
+import MainLayout from "./layout/MainLayout"
+import {Manage} from "./layout/ManageLayout"
+import ManageGenres from "./pages/Manage/ManageGenres/ManageGenres"
 function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="absolute top-3 right-3 z-10">
-          <DarkLightModeToggle/>
-      </div>
       <Routes>
         <Route path="/" element={<div>
          
@@ -36,10 +36,13 @@ function App() {
             </RedirectIfAuthenticated>
           } 
         />
-        <Route element={<ProtectedRoute />}>
-          <Route path="dashboard" element={<div>Dashboard</div>} />
-          {/* Other protected routes */}
-        </Route>
+        {/* <Route element={<ProtectedRoute />}> */}
+          <Route path="dashboard" element={<Dashboard/>} />
+          <Route path="dashboard/manage" element={<ManageGenres/>} />
+          
+        
+
+        {/* </Route> */}
 
         {/* Protected routes for admin users */}
         <Route element={<AdminRoute />}>
