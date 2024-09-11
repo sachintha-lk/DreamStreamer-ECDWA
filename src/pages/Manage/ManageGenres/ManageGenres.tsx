@@ -45,16 +45,16 @@ const ManageGenres: React.FC = () => {
 
     return (
         <div>
-            <div className='mx-3'>
+            <div className='m-3 flex justify-between gap-2'>
                 <h1 className='text-2xl font-semibold'>Manage Genres</h1>
                 <AddGenreDialog onAdd={handleAddGenre} />
-                            </div>
+            </div>
             {loading ? (
                 <div className="space-y-4">
-                    <Skeleton className="h-8 w-full" />
-                    <Skeleton className="h-8 w-full" />
-                    <Skeleton className="h-8 w-full" />
-                    <Skeleton className="h-8 w-full" />
+                    <Skeleton className="h-8 w-min" />
+                    <Skeleton className="h-8 w-min" />
+                    <Skeleton className="h-8 w-min" />
+                    <Skeleton className="h-8 w-min" />
                 </div>
             ) : (
                 <GenreTable genres={genres} onDelete={handleDeleteGenre} onUpdate={handleUpdateGenre} />

@@ -11,21 +11,21 @@ interface GenreTableProps {
 }
 
 const GenreTable: React.FC<GenreTableProps> = ({ genres, onDelete, onUpdate }) => (
-    <Table>
+    <Table className=''>
         <TableCaption>Genres</TableCaption>
         <TableHeader>
             <TableRow>
-                <TableHead>Genre ID</TableHead>
+                <TableHead className='min-w-min'>Genre ID</TableHead>
                 <TableHead>Name</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead className='min-w-min'>Actions</TableHead>
             </TableRow>
         </TableHeader>
         <TableBody>
             {genres.map((genre) => (
                 <TableRow className='' key={genre.id}>
-                    <TableCell>{genre.id}</TableCell>
-                    <TableCell>{genre.name}</TableCell>
-                    <TableCell>
+                    <TableCell className='py-1 min-w-min'>{genre.id}</TableCell>
+                    <TableCell className='py-1'>{genre.name}</TableCell>
+                    <TableCell className='py-1 min-w-min flex gap-2'>
                         <UpdateGenreDialog
                             initialGenre={genre}
                             onUpdate={onUpdate}

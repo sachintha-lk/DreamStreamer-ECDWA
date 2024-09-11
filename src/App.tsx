@@ -38,7 +38,13 @@ function App() {
         />
         {/* <Route element={<ProtectedRoute />}> */}
           <Route path="dashboard" element={<Dashboard/>} />
-          <Route path="dashboard/manage" element={<ManageGenres/>} />
+          {/* <Route path="dashboard" element={<ManageGenres/>} /> */}
+          <Route path="dashboard/genres" element={<ManageGenres/>} />
+          <Route path="dashboard/artists" element={<ManageGenres/>} />
+          <Route path="dashboard/albums" element={<ManageGenres/>} />
+          <Route path="dashboard/tracks" element={<ManageGenres/>} />
+
+
           
         
 

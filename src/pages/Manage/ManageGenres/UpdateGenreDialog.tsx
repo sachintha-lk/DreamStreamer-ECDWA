@@ -41,7 +41,7 @@ const UpdateGenreDialog: React.FC<UpdateGenreDialogProps> = ({ onUpdate, initial
             }
         }}>
             <DialogTrigger asChild>
-                <Button variant="outline">Update Genre</Button>
+                <Button variant="outline">Update</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>

@@ -39,7 +39,7 @@ const AddGenreDialog: React.FC<AddGenreDialogProps> = ({ onAdd }) => {
             }
         }}>
             <DialogTrigger asChild>
-                <Button variant="default">Add Genre</Button>
+                <Button variant="default"  className='inline-block'>Add Genre</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[300px]">
                 <DialogHeader>
