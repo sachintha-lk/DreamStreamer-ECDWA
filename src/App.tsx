@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard"
 import MainLayout from "./layout/MainLayout"
 import {Manage} from "./layout/ManageLayout"
 import ManageGenres from "./pages/Manage/ManageGenres/ManageGenres"
+import ManageArtists from "./pages/Manage/ManageArtists/ManageArtists"
 function App() {
 
   return (
@@ -40,7 +41,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard/>} />
           {/* <Route path="dashboard" element={<ManageGenres/>} /> */}
           <Route path="dashboard/genres" element={<ManageGenres/>} />
-          <Route path="dashboard/artists" element={<ManageGenres/>} />
+          <Route path="dashboard/artists" element={<ManageArtists/>} />
           <Route path="dashboard/albums" element={<ManageGenres/>} />
           <Route path="dashboard/tracks" element={<ManageGenres/>} />
 

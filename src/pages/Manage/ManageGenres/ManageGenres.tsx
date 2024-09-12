@@ -4,10 +4,12 @@ import { Genre } from './GenreTypes';
 import { fetchGenres, deleteGenre, addGenre, updateGenre } from './ManageGenreService';
 import GenreTable from './GenreTable';
 import AddGenreDialog from './AddGenreDialog';
+import { useToast } from '@/components/ui/use-toast';
 
 const ManageGenres: React.FC = () => {
     const [genres, setGenres] = useState<Genre[]>([]);
     const [loading, setLoading] = useState(true);
+    const { toast } = useToast();
 
     useEffect(() => {
         loadGenres();
@@ -20,6 +22,12 @@ const ManageGenres: React.FC = () => {
             setLoading(false);
         } catch (error) {
             console.error("Error fetching genres:", error);
+            toast({
+                title: "Error",
+                description: `Error retreiving genres`,
+                variant: "destructive"
+              });
+
             setLoading(false);
         }
     };
@@ -30,6 +38,11 @@ const ManageGenres: React.FC = () => {
             setGenres(genres.filter((genre) => genre.id !== id));
         } catch (error) {
             console.error("Error deleting genre:", error);
+            toast({
+                title: "Error",
+                description: `Error deleting genre`,
+                variant: "destructive"
+              });
         }
     };
 

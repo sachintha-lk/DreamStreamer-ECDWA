@@ -3,44 +3,45 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { AddGenreMessage } from './GenreTypes';
+import { AddArtistMessage } from './ArtistTypes';
 import { useToast } from '@/components/ui/use-toast';
 
-interface AddGenreDialogProps {
-    onAdd: (genreName: string) => Promise<void>;
+interface AddArtistDialogProps {
+    onAdd: (artistName: string) => Promise<void>;
 }
 
-const AddGenreDialog: React.FC<AddGenreDialogProps> = ({ onAdd }) => {
+const AddArtistDialog: React.FC<AddArtistDialogProps> = ({ onAdd }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [genreName, setGenreName] = useState('');
-    const [message, setMessage] = useState<AddGenreMessage | null>(null);
+    const [artistName, setArtistName] = useState('');
+    const [message, setMessage] = useState<AddArtistMessage | null>(null);
     const {toast} = useToast();
 
     const handleAdd = async () => {
-        if (!genreName) {
-            setMessage({ type: 'error', message: 'Genre name is required' });
+        if (!artistName) {
+            setMessage({ type: 'error', message: 'Artist name is required' });
             toast({
                 title: "Error",
-                description: `Genre Name is required`,
+                description: `Artist Name is required`,
                 variant: "destructive"
               });
             return;
         }
 
         try {
-            await onAdd(genreName);
-            setMessage({ type: 'success', message: 'Genre added successfully' });
+            await onAdd(artistName);
+            setMessage({ type: 'success', message: 'Artist added successfully' });
             toast({
-                title: "Genre added successfully",
-                description: `Genre ${genreName} was added successfully`
-                });
-            setGenreName('');
+                title: "Artist added successfully",
+                description: `Artist ${artistName} was added successfully`,
+
+              });
+            setArtistName('');
             setTimeout(() => setIsOpen(false), 500);
         } catch (error: any) {
-            setMessage({ type: 'error', message: error.response?.data?.message || 'An error occurred while adding the genre' });
+            setMessage({ type: 'error', message: error.response?.data?.message || 'An error occurred while adding the artist' });
             toast({
                 title: "Error",
-                description: `An error occurred while adding the genre: ${error.response?.data?.message} `,
+                description: `An error occurred while adding the artist: ${error.response?.data?.message} `,
                 variant: "destructive"
               });
         }
@@ -50,17 +51,17 @@ const AddGenreDialog: React.FC<AddGenreDialogProps> = ({ onAdd }) => {
         <Dialog open={isOpen} onOpenChange={(open) => {
             setIsOpen(open);
             if (!open) {
-                setGenreName('');
+                setArtistName('');
                 setMessage(null);
             }
         }}>
             <DialogTrigger asChild>
-                <Button variant="default"  className='inline-block'>Add Genre</Button>
+                <Button variant="default"  className='inline-block'>Add Artist</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[300px]">
                 <DialogHeader>
-                    <DialogTitle>Add New Genre</DialogTitle>
-                    <DialogDescription>Add a new genre to the list of genres.</DialogDescription>
+                    <DialogTitle>Add New Artist</DialogTitle>
+                    <DialogDescription>Add a new artist to the list of artists.</DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <div className="grid grid-cols-4 items-center gap-4">
@@ -68,8 +69,8 @@ const AddGenreDialog: React.FC<AddGenreDialogProps> = ({ onAdd }) => {
                         <Input
                             id="name"
                             className={`col-span-3 ${message?.type === 'error' ? 'border-red-500' : ''}`}
-                            value={genreName}
-                            onChange={(e) => setGenreName(e.target.value)}
+                            value={artistName}
+                            onChange={(e) => setArtistName(e.target.value)}
                         />
                         {message && (
                             <p className={`col-span-4 text-sm ${message.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
@@ -86,4 +87,4 @@ const AddGenreDialog: React.FC<AddGenreDialogProps> = ({ onAdd }) => {
     );
 };
 
-export default AddGenreDialog;
+export default AddArtistDialog;
