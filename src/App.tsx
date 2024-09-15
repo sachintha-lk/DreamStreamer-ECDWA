@@ -2,17 +2,17 @@ import { Routes, Route } from "react-router-dom"
 import { ThemeProvider } from "@/components/theme-provider"
 
 import Login from "./pages/Login"
-import { DarkLightModeToggle } from "./components/dark-light-mode-toggle"
 import SignUp from "./pages/SignUp"
 import { Toaster } from "@/components/ui/toaster"
-import ProtectedRoute from "./components/ProtectedRoute"
 import AdminRoute from "./components/AdminRoute"
 import RedirectIfAuthenticated from "./components/RedirectIfAuthenticated"
 import Dashboard from "./pages/Dashboard"
-import MainLayout from "./layout/MainLayout"
-import {Manage} from "./layout/ManageLayout"
 import ManageGenres from "./pages/Manage/ManageGenres/ManageGenres"
 import ManageArtists from "./pages/Manage/ManageArtists/ManageArtists"
+import ManageAlbums from "./pages/Manage/ManageAlbums/ManageAlbums"
+import ManageTracks from "./pages/Manage/ManageTracks/ManageTrack"
+import { TabsDemo } from "./pages/Manage/Manage"
+
 function App() {
 
   return (
@@ -39,11 +39,11 @@ function App() {
         />
         {/* <Route element={<ProtectedRoute />}> */}
           <Route path="dashboard" element={<Dashboard/>} />
-          {/* <Route path="dashboard" element={<ManageGenres/>} /> */}
+          <Route path="dashboard/manage" element={<TabsDemo/>} />
           <Route path="dashboard/genres" element={<ManageGenres/>} />
           <Route path="dashboard/artists" element={<ManageArtists/>} />
-          <Route path="dashboard/albums" element={<ManageGenres/>} />
-          <Route path="dashboard/tracks" element={<ManageGenres/>} />
+          <Route path="dashboard/albums" element={<ManageAlbums/>} />
+          <Route path="dashboard/tracks" element={<ManageTracks/>} />
 
 
           
