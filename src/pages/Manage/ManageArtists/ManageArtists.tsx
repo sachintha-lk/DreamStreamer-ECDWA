@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Artist } from './ArtistTypes';
-import { fetchArtists, deleteArtist, addArtist, updateArtist } from './ManageArtistService';
+import { fetchArtists, deleteArtist, addArtist, updateArtist } from '../../../services/ArtistService';
 import ArtistTable from './ArtistTable';
 import AddArtistDialog from './AddAritstDialog';
 import { useToast } from '@/components/ui/use-toast';

@@ -17,13 +17,13 @@ import {
 
 import { Artist } from '../ManageArtists/ArtistTypes';
 import { Genre } from '../ManageGenres/GenreTypes';
-import { fetchArtists }  from '../ManageArtists/ManageArtistService';
-import { fetchGenres }  from '../ManageGenres/ManageGenreService';
+import { fetchArtists }  from '../../../services/ArtistService';
+import { fetchGenres }  from '../../../services/GenreService';
 
 import {useEffect} from 'react';
 
 interface AddAlbumDialogProps {
-    onAdd: (AlbumName: string) => Promise<void>;
+    onAdd: (AlbumName: string, selectedArtistID: string, selectedGenreID: string, year: string, albumArt: File | null) => Promise<void>;
 }
 
 const AddAlbumDialog: React.FC<AddAlbumDialogProps> = ({ onAdd }) => {
@@ -32,6 +32,8 @@ const AddAlbumDialog: React.FC<AddAlbumDialogProps> = ({ onAdd }) => {
     const [selectedArtistID, setSelectedArtistID] = useState('');
     const [selectedGenreID, setSelectedGenreID] = useState('');
     const [message, setMessage] = useState<AddAlbumMessage | null>(null);
+    const [year, setYear] = useState('');
+    const [albumArt, setAlbumArt] = useState<File | null>(null);
     
     const {toast} = useToast();
     const [artists, setArtists] = useState<Artist[]>([]);
@@ -75,7 +77,7 @@ const AddAlbumDialog: React.FC<AddAlbumDialogProps> = ({ onAdd }) => {
         }
 
         try {
-            await onAdd(AlbumName);
+            await onAdd(AlbumName, selectedArtistID, selectedGenreID, year, albumArt);
             setMessage({ type: 'success', message: 'Album added successfully' });
             toast({
                 title: "Album added successfully",
@@ -125,6 +127,15 @@ const AddAlbumDialog: React.FC<AddAlbumDialogProps> = ({ onAdd }) => {
                             </p>
                         )}
                     </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="year" className="text-right">Year</Label>
+                        <Input
+                            id="year"
+                            className={`col-span-3 ${message?.type === 'error' ? 'border-red-500' : ''}`}
+                            value={year}
+                            onChange={(e) => setYear(e.target.value)}
+                        />
+                    </div>
 
                     <div className="grid grid-cols-4 items-center gap-4">
 
@@ -143,7 +154,6 @@ const AddAlbumDialog: React.FC<AddAlbumDialogProps> = ({ onAdd }) => {
                                         {genre.name}
                                     </SelectItem>
                                 ))}
-                   
                             </SelectGroup>
                         </SelectContent>
                     </Select>
@@ -157,8 +167,7 @@ const AddAlbumDialog: React.FC<AddAlbumDialogProps> = ({ onAdd }) => {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
-                                    <SelectLabel>Artists</SelectLabel>
-                                    
+                                    <SelectLabel>Artists</SelectLabel>                                    
                                     {artists.map((artist) => (
                                         <SelectItem key={artist.id} value={artist.id}>
                                             {artist.name}
@@ -171,7 +180,18 @@ const AddAlbumDialog: React.FC<AddAlbumDialogProps> = ({ onAdd }) => {
                     </div>
                     <div className="grid w-full max-w-sm items-center gap-1.5">
                         <Label htmlFor="picture">Picture</Label>
-                        <Input id="picture" type="file" />
+                        <Input 
+                            id="picture" 
+                            type="file" 
+                            accept=".png, .jpeg" 
+                            onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                    setAlbumArt(file);
+                                    // console.log(file);
+                                }
+                            }} 
+                        />
                     </div>
 
                 </div>

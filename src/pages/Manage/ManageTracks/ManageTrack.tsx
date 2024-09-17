@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Track } from './TrackTypes';
-import { fetchTracks, deleteTrack, addTrack, updateTrack } from './ManageTrackService';
+import { fetchTracks, deleteTrack, addTrack, updateTrack } from '../../../services/TrackService';
 import TrackTable from './TrackTable';
 import AddTrackDialog from './AddTrackDialog';
 import { useToast } from '@/components/ui/use-toast';

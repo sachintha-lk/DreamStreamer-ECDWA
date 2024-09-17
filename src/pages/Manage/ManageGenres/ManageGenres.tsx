@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Genre } from './GenreTypes';
-import { fetchGenres, deleteGenre, addGenre, updateGenre } from './ManageGenreService';
+import { fetchGenres, deleteGenre, addGenre, updateGenre } from '../../../services/GenreService';
 import GenreTable from './GenreTable';
 import AddGenreDialog from './AddGenreDialog';
 import { useToast } from '@/components/ui/use-toast';

@@ -6,12 +6,12 @@ import { Input } from '@/components/ui/input';
 
 interface UpdateAlbumDialogProps {
     onUpdate: (albumId: string, albumName: string) => Promise<void>;
-    initialAlbum: { id: string; name: string } | null;
+    initialAlbum: { id: string; album_name: string } | null;
 }
 
 const UpdateAlbumDialog: React.FC<UpdateAlbumDialogProps> = ({ onUpdate, initialAlbum }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [albumName, setAlbumName] = useState(initialAlbum?.name || '');
+    const [albumName, setAlbumName] = useState(initialAlbum?.album_name || '');
     const [message, setMessage] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
     const handleUpdate = async () => {
@@ -36,7 +36,7 @@ const UpdateAlbumDialog: React.FC<UpdateAlbumDialogProps> = ({ onUpdate, initial
         <Dialog open={isOpen} onOpenChange={(open) => {
             setIsOpen(open);
             if (!open) {
-                setAlbumName(initialAlbum?.name || '');
+                setAlbumName(initialAlbum?.album_name || '');
                 setMessage(null);
             }
         }}>
