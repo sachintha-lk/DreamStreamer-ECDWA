@@ -5,6 +5,7 @@ import { fetchArtists, deleteArtist, addArtist, updateArtist } from '../../../se
 import ArtistTable from './ArtistTable';
 import AddArtistDialog from './AddAritstDialog';
 import { useToast } from '@/components/ui/use-toast';
+import { fetchImageUploadPresignedURL } from '@/services/S3GetPresignedURLService';
 
 const ManageArtists: React.FC = () => {
     const [artists, setArtists] = useState<Artist[]>([]);
@@ -24,9 +25,9 @@ const ManageArtists: React.FC = () => {
             console.error("Error fetching artists:", error);
             toast({
                 title: "Error",
-                description: `Error retreiving artists`,
-                variant: "destructive"
-              });
+                description: "Error retrieving artists",
+                variant: "destructive",
+            });
             setLoading(false);
         }
     };
@@ -35,25 +36,87 @@ const ManageArtists: React.FC = () => {
         try {
             await deleteArtist(id);
             setArtists(artists.filter((artist) => artist.id !== id));
+            await loadArtists();
         } catch (error) {
             console.error("Error deleting artist:", error);
             toast({
                 title: "Error",
-                description: `Error deleting artist`,
-                variant: "destructive"
-              });
+                description: "Error deleting artist",
+                variant: "destructive",
+            });
         }
     };
 
-    const handleAddArtist = async (artistName: string) => {
-        await addArtist(artistName);
-        await loadArtists();
+    const handleAddArtist = async (artistName: string, artistImage: File | null) => {
+        try {
+            let artist_image_filename = '';
+
+            if (artistImage) {
+                const fileType = artistImage.type;
+                if (fileType !== "image/png" && fileType !== "image/jpeg") {
+                    toast({
+                        title: "Error",
+                        description: "Invalid file type. Please upload a PNG or JPEG file.",
+                        variant: "destructive",
+                    });
+                    return;
+                }
+
+                // Get the presigned URL for image upload
+                const response = await fetchImageUploadPresignedURL(fileType, "artist_image");
+                const presignedURL = response.data?.uploadURL;
+
+                if (!presignedURL) {
+                    throw new Error("Error getting presigned URL");
+                }
+
+                artist_image_filename = response.data?.filename;
+
+                // Upload the artist image
+                const uploadResponse = await fetch(presignedURL, {
+                    method: 'PUT',
+                    body: artistImage,
+                    headers: {
+                        'Content-Type': fileType,
+                    },
+                });
+
+                if (!uploadResponse.ok) {
+                    throw new Error(`Error uploading file: ${uploadResponse.statusText}`);
+                }
+            }
+
+            // Add the artist with the image filename
+            await addArtist(artistName, artist_image_filename);
+
+            toast({
+                title: "Success",
+                description: "Artist added successfully",
+            });
+            await loadArtists();
+        } catch (error) {
+            console.error("Error adding artist:", error);
+            toast({
+                title: "Error",
+                description: "Error adding artist",
+                variant: "destructive",
+            });
+        }
     };
 
     const handleUpdateArtist = async (id: string, artistName: string) => {
-        await updateArtist(id, artistName);
-        await loadArtists();
-    }
+        try {
+            await updateArtist(id, artistName);
+            await loadArtists();
+        } catch (error) {
+            console.error("Error updating artist:", error);
+            toast({
+                title: "Error",
+                description: "Error updating artist",
+                variant: "destructive",
+            });
+        }
+    };
 
     return (
         <div>

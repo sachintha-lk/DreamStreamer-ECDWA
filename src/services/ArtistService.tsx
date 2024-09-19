@@ -8,6 +8,7 @@ export const fetchArtists = async (): Promise<Artist[]> => {
     return response.data.map((artist: any) => ({
         id: artist.id.toString(),
         name: artist.name,
+        artist_image: artist.artist_image_url,
     }));
 };
 
@@ -15,8 +16,8 @@ export const deleteArtist = async (id: string): Promise<void> => {
     await axios.delete(`${API_BASE_URL}/artists/${id}`);
 };
 
-export const addArtist = async (artistName: string): Promise<void> => {
-    await axios.post(`${API_BASE_URL}/artists`, { name: artistName });
+export const addArtist = async (artistName: string, artist_image_filename: string ): Promise<void> => {
+    await axios.post(`${API_BASE_URL}/artists`, { name: artistName, artistImgURL: artist_image_filename });
 };
 
 export const updateArtist = async (id: string, artistName: string): Promise<void> => {

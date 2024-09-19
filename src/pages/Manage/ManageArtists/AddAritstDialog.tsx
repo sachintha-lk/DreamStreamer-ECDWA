@@ -7,13 +7,15 @@ import { AddArtistMessage } from './ArtistTypes';
 import { useToast } from '@/components/ui/use-toast';
 
 interface AddArtistDialogProps {
-    onAdd: (artistName: string) => Promise<void>;
+    onAdd: (artistName: string, artistImage: File | null) => Promise<void>;
 }
 
 const AddArtistDialog: React.FC<AddArtistDialogProps> = ({ onAdd }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [artistName, setArtistName] = useState('');
     const [message, setMessage] = useState<AddArtistMessage | null>(null);
+    const [artistImage, setArtistImage] = useState<File | null>(null);
+
     const {toast} = useToast();
 
     const handleAdd = async () => {
@@ -28,7 +30,7 @@ const AddArtistDialog: React.FC<AddArtistDialogProps> = ({ onAdd }) => {
         }
 
         try {
-            await onAdd(artistName);
+            await onAdd(artistName, artistImage);
             setMessage({ type: 'success', message: 'Artist added successfully' });
             toast({
                 title: "Artist added successfully",
@@ -63,7 +65,9 @@ const AddArtistDialog: React.FC<AddArtistDialogProps> = ({ onAdd }) => {
                     <DialogTitle>Add New Artist</DialogTitle>
                     <DialogDescription>Add a new artist to the list of artists.</DialogDescription>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
+                <div className="grid gap
+                
+                -4 py-4">
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="name" className="text-right">Name</Label>
                         <Input
@@ -77,6 +81,21 @@ const AddArtistDialog: React.FC<AddArtistDialogProps> = ({ onAdd }) => {
                                 {message.message}
                             </p>
                         )}
+                    </div>
+                    <div className="grid w-full max-w-sm items-center gap-4">
+                        <Label htmlFor="picture">Picture</Label>
+                        <Input 
+                            id="picture" 
+                            type="file" 
+                            accept=".png, .jpeg" 
+                            onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                    setArtistImage(file);
+                                    // console.log(file);
+                                }
+                            }} 
+                        />
                     </div>
                 </div>
                 <DialogFooter>
