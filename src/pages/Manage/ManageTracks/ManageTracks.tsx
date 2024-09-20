@@ -5,6 +5,7 @@ import { fetchTracks, deleteTrack, addTrack, updateTrack } from '../../../servic
 import TrackTable from './TrackTable';
 import AddTrackDialog from './AddTrackDialog';
 import { useToast } from '@/components/ui/use-toast';
+import { fetchAudioUploadPresignedURL } from '@/services/S3GetPresignedURLService';
 
 const ManageTracks: React.FC = () => {
     const [tracks, setTracks] = useState<Track[]>([]);
@@ -45,8 +46,53 @@ const ManageTracks: React.FC = () => {
         }
     };
 
-    const handleAddTrack = async (trackName: string) => {
-        await addTrack(trackName);
+    const handleAddTrack = async (trackName: string, albumId: string, audio: File) => {
+
+        console.log("Trying to add track:", trackName, albumId, audio);
+        let audioFileName = '';
+
+        if (audio) {
+            const fileType = audio.type;
+            if (fileType !== "audio/mpeg" &&  fileType !== "audio/mp3") {
+                toast({
+                    title: "Error",
+                    description: "Invalid file type. Please upload a MP3 File",
+                    variant: "destructive",
+                });
+                console.error("Invalid file type. Please upload a MP3 File");
+                return;
+            }
+        }
+
+        // get presigned URL
+        const response = await fetchAudioUploadPresignedURL();
+        const presignedURL = response.data?.uploadURL;
+        
+
+        if (!presignedURL) {
+            throw new Error("Error getting presigned URL");
+        }
+
+        audioFileName = response.data?.filename;
+        console.log("Uploading file to S3:", presignedURL, audioFileName);
+
+        // Upload the file to S3
+        const uploadResponse = await fetch(presignedURL, {
+            method: 'PUT',
+            body: audio,
+        });
+
+        if (!uploadResponse.ok) {
+            throw new Error("Error uploading audio file");
+        }
+
+        await addTrack(trackName, albumId, audioFileName)
+        
+        toast({
+            title: "Success",
+            description: "Track added successfully",
+        });
+        
         await loadTracks();
     };
 

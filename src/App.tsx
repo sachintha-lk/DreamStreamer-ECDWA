@@ -10,7 +10,7 @@ import Dashboard from "./pages/Dashboard"
 import ManageGenres from "./pages/Manage/ManageGenres/ManageGenres"
 import ManageArtists from "./pages/Manage/ManageArtists/ManageArtists"
 import ManageAlbums from "./pages/Manage/ManageAlbums/ManageAlbums"
-import ManageTracks from "./pages/Manage/ManageTracks/ManageTrack"
+import ManageTracks from "./pages/Manage/ManageTracks/ManageTracks"
 import { TabsDemo } from "./pages/Manage/Manage"
 
 function App() {

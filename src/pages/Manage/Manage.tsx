@@ -11,7 +11,7 @@ import {
 import ManageAlbums from "./ManageAlbums/ManageAlbums"
 import ManageGenres from "./ManageGenres/ManageGenres"
 import ManageArtists from "./ManageArtists/ManageArtists"
-import ManageTracks from "./ManageTracks/ManageTrack"
+import ManageTracks from "./ManageTracks/ManageTracks"
 
 export function TabsDemo() {
   return (

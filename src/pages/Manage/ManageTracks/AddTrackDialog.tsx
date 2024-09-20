@@ -1,19 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { AddTrackMessage } from './TrackTypes';
 import { useToast } from '@/components/ui/use-toast';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Album } from '../ManageAlbums/AlbumTypes';
+import { fetchAlbums } from '@/services/AlbumService';
 
 interface AddTrackDialogProps {
-    onAdd: (TrackName: string) => Promise<void>;
+    onAdd: (TrackName: string, albumId: string, audioFile: File) => Promise<void>;
 }
 
 const AddTrackDialog: React.FC<AddTrackDialogProps> = ({ onAdd }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [TrackName, setTrackName] = useState('');
     const [message, setMessage] = useState<AddTrackMessage | null>(null);
+
+    const [selectedAlbumID, setSelectedAlbumID] = useState('');
+    
+    const [albums, setAlbums] = useState<Album[]>([]);
+    const [
+        audio, setAudio] = useState<File | null>(null);
+
+    useEffect(() => {
+        fetchAlbums().then((data) => {
+            console.log(data);
+            setAlbums(data);
+        }).catch((error) => {
+            console.log(error);
+            toast({
+                title: "Error",
+                description: `An error occurred while fetching albums: ${error.response?.data?.message} `,
+                variant: "destructive"
+              });
+        });
+
+    }, []);
+
     const {toast} = useToast();
 
     const handleAdd = async () => {
@@ -28,7 +53,7 @@ const AddTrackDialog: React.FC<AddTrackDialogProps> = ({ onAdd }) => {
         }
 
         try {
-            await onAdd(TrackName);
+            await onAdd(TrackName, selectedAlbumID, audio!);
             setMessage({ type: 'success', message: 'Track added successfully' });
             toast({
                 title: "Track added successfully",
@@ -77,6 +102,41 @@ const AddTrackDialog: React.FC<AddTrackDialogProps> = ({ onAdd }) => {
                                 {message.message}
                             </p>
                         )}
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+
+                    <Label htmlFor="name" className="text-right">Genre</Label>
+
+                    <Select onValueChange={ (value) => setSelectedAlbumID(value) } >
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Select Album" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>Genres</SelectLabel>
+                                
+                                {albums.map((album) => (
+                                    <SelectItem key={album.id} value={album.id}>
+                                        {album.album_name}
+                                    </SelectItem>
+                                ))}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    </div>
+                    <div className="grid w-full max-w-sm items-center gap-4">
+                        <Label htmlFor="picture">Audio</Label>
+                        <Input 
+                            id="audio" 
+                            type="file" 
+                            accept=".mp3" 
+                            onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                    setAudio(file);
+                                }
+                            }} 
+                        />
                     </div>
                 </div>
                 <DialogFooter>
