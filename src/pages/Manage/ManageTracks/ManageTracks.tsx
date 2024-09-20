@@ -96,8 +96,55 @@ const ManageTracks: React.FC = () => {
         await loadTracks();
     };
 
-    const handleUpdateTrack = async (id: string, trackName: string) => {
-        await updateTrack(id, trackName);
+    const handleUpdateTrack = async (id: string, trackName: string, album_id: string, existingAudioFileURL: string, newAudioFile: File | null) => {
+        
+        // if the name is empty, show an error
+        if (!trackName) {
+            toast({
+                title: "Error",
+                description: "Track name is required",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        let audioFileURL = '';
+        if (newAudioFile) {
+            const fileType = newAudioFile.type;
+            if (fileType !== "audio/mpeg" &&  fileType !== "audio/mp3") {
+                toast({
+                    title: "Error",
+                    description: "Invalid file type. Please upload a MP3 File",
+                    variant: "destructive",
+                });
+                console.error("Invalid file type. Please upload a MP3 File");
+                return;
+            }
+
+            // get presigned URL
+            const response = await fetchAudioUploadPresignedURL();
+            const presignedURL = response.data?.uploadURL;
+            if (!presignedURL) {
+                throw new Error("Error getting presigned URL");
+            }
+
+            audioFileURL = response.data?.filename;
+            console.log("Uploading file to S3:", presignedURL, audioFileURL);
+
+            // Upload the file to S3
+            const uploadResponse = await fetch(presignedURL, {
+                method: 'PUT',
+                body: newAudioFile,
+            });
+
+            if (!uploadResponse.ok) {
+                throw new Error("Error uploading audio file");
+            }
+        } else {
+            audioFileURL = existingAudioFileURL;
+        }
+
+        await updateTrack(id, trackName, album_id, audioFileURL);
         await loadTracks();
     }
 

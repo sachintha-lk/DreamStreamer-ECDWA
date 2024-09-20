@@ -19,10 +19,8 @@ const AddTrackDialog: React.FC<AddTrackDialogProps> = ({ onAdd }) => {
     const [message, setMessage] = useState<AddTrackMessage | null>(null);
 
     const [selectedAlbumID, setSelectedAlbumID] = useState('');
-    
     const [albums, setAlbums] = useState<Album[]>([]);
-    const [
-        audio, setAudio] = useState<File | null>(null);
+    const [audio, setAudio] = useState<File | null>(null);
 
     useEffect(() => {
         fetchAlbums().then((data) => {
@@ -105,7 +103,7 @@ const AddTrackDialog: React.FC<AddTrackDialogProps> = ({ onAdd }) => {
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
 
-                    <Label htmlFor="name" className="text-right">Genre</Label>
+                    <Label htmlFor="name" className="text-right">Album</Label>
 
                     <Select onValueChange={ (value) => setSelectedAlbumID(value) } >
                         <SelectTrigger className="w-[180px]">
@@ -113,7 +111,7 @@ const AddTrackDialog: React.FC<AddTrackDialogProps> = ({ onAdd }) => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectLabel>Genres</SelectLabel>
+                                <SelectLabel>Album</SelectLabel>
                                 
                                 {albums.map((album) => (
                                     <SelectItem key={album.id} value={album.id}>

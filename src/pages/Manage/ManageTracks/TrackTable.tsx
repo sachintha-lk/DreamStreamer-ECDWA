@@ -2,12 +2,12 @@ import React from 'react';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Track } from './TrackTypes';
 import TrackDeleteConfirmationDialog from './TrackDeleteConfirmationDialog';
-import UpdateTrackDialog from './UpdateAlbumDialog';
+import UpdateTrackDialog from './UpdateTrackDialog';
 
 interface TrackTableProps {
     tracks: Track[];
     onDelete: (id: string) => void;
-    onUpdate: (id: string, name: string) => Promise<void>;
+    onUpdate: (id: string, trackName: string, album_id: string, existingAudioFileURL: string, newAudioFile: File | null) => Promise<void>;
 }
 
 const TrackTable: React.FC<TrackTableProps> = ({ tracks, onDelete, onUpdate }) => (

@@ -25,6 +25,18 @@ export const addTrack = async (trackName: string, album_id: string, audioFileURL
     }
 };
 
-export const updateTrack = async (id: string, trackName: string): Promise<void> => {
-    await axios.put(`${API_BASE_URL}/tracks/${id}`, { name: trackName });
+export const updateTrack = async (id: string, trackName: string, album_id: string, audioFileURL: string): Promise<void> => {
+    // try {
+        await axios.put(`${API_BASE_URL}/tracks/${id}`, {
+            name: trackName,
+            album_id: album_id,
+            mp3_url: audioFileURL
+        });
+
+        // if (response.status !== 200) {
+        //     throw new Error(`Failed to update track: ${response.statusText}`);
+        // }
+    // } catch (e: any) {
+    //     throw e;
+    // }
 };
