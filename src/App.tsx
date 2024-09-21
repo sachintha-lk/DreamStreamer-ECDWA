@@ -12,15 +12,14 @@ import ManageArtists from "./pages/Manage/ManageArtists/ManageArtists"
 import ManageAlbums from "./pages/Manage/ManageAlbums/ManageAlbums"
 import ManageTracks from "./pages/Manage/ManageTracks/ManageTracks"
 import { TabsDemo } from "./pages/Manage/Manage"
+import MainLayoutWithSideBar from "./layout/MainLayoutWithPlayer"
 
 function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Routes>
-        <Route path="/" element={<div>
-         
-        </div>} />
+        <Route path="/" element={<MainLayoutWithSideBar/>} />
         <Route 
           path="login" 
           element={

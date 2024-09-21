@@ -1,78 +1,85 @@
+import AlbumCarousel from "@/components/AlbumCarousel"
 import ArtistCarousel from "@/components/ArtistCarousel"
+import TrackCarousel from "@/components/TrackCarousel"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import MainLayout from "@/layout/MainLayout"
+import { useEffect, useState } from "react"
+import { Artist } from "./Manage/ManageArtists/ArtistTypes"
+import { Album } from "./Manage/ManageAlbums/AlbumTypes"
+import { Track } from "./Manage/ManageTracks/TrackTypes"
+import { fetchArtists } from "@/services/ArtistService"
+import { toast } from "@/components/ui/use-toast"
+import { fetchAlbums } from "@/services/AlbumService"
+import { fetchTracks } from "@/services/TrackService"
 
 function Dashboard() {
+  const [artists, setArtists] = useState<Artist[]>([]);
+  const [albums, setAlbums] = useState<Album[]>([]);
+  const [tracks, setTracks] = useState<Track[]>([]);
 
-  const artists = [
-    {
-      id: "1",
-      name: "Artist 1",
-      image: "https://via.placeholder.com/150"
-    },
-    {
-      id: "2",
-      name: "Artist 2",
-      image: "https://via.placeholder.com/150"
-    },
-    {
-      id: "3",
-      name: "Artist 3",
-      image: "https://via.placeholder.com/150"
-    },
-    {
-      id: "4",
-      name: "Artist 4",
-      image: "https://via.placeholder.com/150"
-    },
-    {
-      id: "5",
-      name: "Artist 5",
-      image: "https://via.placeholder.com/150"
-    },
-    {
-      id: "6",
-      name: "Artist 6",
-      image: "https://via.placeholder.com/150"
-    },
-    {
-      id: "5",
-      name: "Artist 5",
-      image: "https://via.placeholder.com/150"
-    },
-    {
-      id: "6",
-      name: "Artist 6",
-      image: "https://via.placeholder.com/150"
-    },
-    {
-      id: "5",
-      name: "Artist 5",
-      image: "https://via.placeholder.com/150"
-    },
-    {
-      id: "6",
-      name: "Artist 6",
-      image: "https://via.placeholder.com/150"
-    },
-    {
-      id: "5",
-      name: "Artist 5",
-      image: "https://via.placeholder.com/150"
-    },
-    {
-      id: "6",
-      name: "Artist 6",
-      image: "https://via.placeholder.com/150"
-    },
-  ]
+  const fetchData = async () => {
+    try {
+      fetchArtists().then((data) => {
+        // console.log(data);
+        setArtists(data);
+      }).catch((error) => {
+        console.log(error);
+        toast({
+            title: "Error",
+            description: `An error occurred while fetching artists: ${error.response?.data?.message} `,
+            variant: "destructive"
+          });
+      });
+    } catch (error: any) {
+      console.log(error);
+      toast({
+        title: "Error",
+        description: `An error occurred while fetching artists: ${error.message}`,
+        variant: "destructive"
+      });
+    }
 
+    fetchAlbums().then((data) => {
+      // console.log(data);
+      setAlbums(data);
+    }
+    ).catch((error) => {
+      console.log(error);
+      toast({
+          title: "Error",
+          description: `An error occurred while fetching albums: ${error.response?.data?.message} `,
+          variant: "destructive"
+        });
+    });
+
+    fetchTracks().then((data) => {
+      // console.log(data);
+      setTracks(data);
+    }
+    ).catch((error : any) => {
+      console.log(error);
+      toast({
+          title: "Error",
+          description: `An error occurred while fetching tracks: ${error.response?.data?.message} `,
+          variant: "destructive"
+        });
+    });
+  };
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <MainLayout>
-        Dahsboard
-        <div className="mx-4 my-2">
-            <h1 className="text-2xl font-semibold mx-4 my-1">Artists</h1>
+        <div className="mx-4">
+            <h1 className="text-2xl font-semibold mt-3 mx-4">Artists</h1>
             <ArtistCarousel artists={artists} />
+
+            <h1 className="text-2xl font-semibold mt-3 mx-4">Albums</h1>
+            <AlbumCarousel albums={albums}/>
+            
+            <h1 className="text-2xl font-semibold mt-3 mx-4">Tracks</h1>
+            <TrackCarousel tracks={tracks} />
         </div>
         <Card>
           <CardHeader>
