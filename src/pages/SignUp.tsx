@@ -1,55 +1,65 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useAuth } from "@/context/AuthContext";
-import { FormEvent, useEffect, useState } from "react";
 import {Link, useNavigate} from "react-router-dom"
+import { useState, FormEvent, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
 
-function Login() {
 
-  const { signIn , user } = useAuth();
-  const navigate = useNavigate();
+function SignUp() {
 
-  useEffect(() => {
-    if (user) {
-      navigate('/dashboard'); 
-    }
-  }, [user, navigate]);
-  
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+    const { signUp, user } = useAuth();
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    const navigate = useNavigate();
+    useEffect(() => {
+      if (user) {
+        navigate('/dashboard'); 
+      }
+    }, [user, navigate]);
 
-    // console.log(user);
-    
-    if (password == "") {
-      return;
-    }
-    signIn(email, password).then((data) => {
-      // console.log(data);
-      // data.
-      navigate('/dashboard');
 
-    }).catch((err) => {
-      console.log(err);
-    });
-    console.log(user);
-    
- 
-  };
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      console.log(user);
+      console.log(email, password, confirmPassword);
+      
+      if (password == "" || password != confirmPassword) {
+        return;
+      }
+      signUp(name, password, email)
+        .then((data) => {
+          console.log(data);
+          navigate('/dashboard');
+
+      });
+      console.log(user);
+    };
+
     return (
         <div className="w-full lg:grid lg:h-screen lg:grid-cols-2">
           <div className="flex items-center justify-center py-12">
             <div className="mx-auto grid w-[350px] gap-6">
               <div className="grid gap-2 text-center">
-              <h1 className="text-3xl font-bold">Login</h1>
-
-               
+              <h1 className="text-3xl font-bold">Sign Up</h1>
               </div>
               <form onSubmit={handleSubmit}>
-                <div className="grid gap-4">
+
+              <div className="grid gap-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="name">Name</Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      required
+                      onChange={(event) => setName(event.target.value)}
+                    />
+                  </div>
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
                     <Input
@@ -63,36 +73,26 @@ function Login() {
                   <div className="grid gap-2">
                     <div className="flex items-center">
                       <Label htmlFor="password">Password</Label>
-                      <Link  to={"/admin"}
-                        className="ml-auto inline-block text-sm underline"
-                      >
-                        Forgot your password?
-                      </Link>
                     </div>
-                    <Input 
-                    id="password" 
-                    type="password" 
-                    required
+                    <Input id="password" type="password" required 
                     onChange={ (event) => setPassword(event.target.value)}
-                     />
+                    />
+                  </div>
+                  <div className="grid gap-2">
+                    <div className="flex items-center">
+                      <Label htmlFor="confirm-password">Confirm Password</Label>
+                    </div>
+                    <Input id="confirm-password" type="password" required 
+                    onChange={ (event) => setConfirmPassword(event.target.value)}
+                    />
                   </div>
                   <Button type="submit" className="w-full">
-                    Login
+                    Sign Up
                   </Button>
                   <Button variant="outline" className="w-full">
                     Login with Google
                   </Button>
-
-                 
-                </div>
-              </form>
-              <div className="mt-4 text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <Link to="/signup" className="underline">
-                  Sign up
-                </Link>
-              </div>
-              <Button variant="outline" className="w-full"
+                  <Button variant="outline" className="w-full"
                   onClick={() => {
                     user?.getSession((err: Error, session: any) => {
                           if (err) {
@@ -108,6 +108,15 @@ function Login() {
                   >
                     Check the user
                   </Button>
+                </div>
+                </form>
+                
+                <div className="mt-4 text-center text-sm">
+                  Already have an account?{" "}
+                  <Link to="/login" className="underline">
+                    Login
+                  </Link>
+                </div>
             </div>
           </div>
           <div className="hidden lg:block lg:h-full lg:overflow-hidden">
@@ -122,4 +131,4 @@ function Login() {
    
 }
 
-export default Login
+export default SignUp
