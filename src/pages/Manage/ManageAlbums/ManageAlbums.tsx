@@ -54,7 +54,7 @@ const ManageAlbums: React.FC = () => {
 
             if (albumArt) {
                 const fileType = albumArt.type;
-                if (fileType !== "image/png" && fileType !== "image/jpeg") {
+                if (fileType !== "image/png" && fileType !== "image/jpeg" && fileType !== "image/jpg") {
                     toast({
                         title: "Error",
                         description: "Invalid file type. Please upload a PNG or JPEG file.",
@@ -147,7 +147,7 @@ const ManageAlbums: React.FC = () => {
 
             if (newAlbumArt) {
                 const fileType = newAlbumArt.type;
-                if (fileType !== "image/png" && fileType !== "image/jpeg") {
+                if (fileType !== "image/png" && fileType !== "image/jpeg" && fileType !== "image/jpg") {
                     toast({
                         title: "Error",
                         description: "Invalid file type. Please upload a PNG or JPEG file.",

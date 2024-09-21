@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 
 const API_BASE_URL= "https://q85cqy4ld4.execute-api.us-east-1.amazonaws.com/dev/v1"
 
-const fetchPresignedURL = async (fileType: "image/png" | "image/jpeg"| "audio/mpeg" ,uploadCategory: "artist_image" | "album_art" | "track_audio"): Promise<AxiosResponse<any, any>> => {
+const fetchPresignedURL = async (fileType: "image/png" | "image/jpeg"| "image/jpg" |"audio/mpeg" ,uploadCategory: "artist_image" | "album_art" | "track_audio"): Promise<AxiosResponse<any, any>> => {
     const response = await axios.get(`${API_BASE_URL}/getpresignedurl?fileType=${fileType}&uploadCategory=${uploadCategory}`);
     return response;
 }
@@ -12,7 +12,7 @@ const fetchPresignedURL = async (fileType: "image/png" | "image/jpeg"| "audio/mp
 //     "filename": "artists/422220560.png"
 // }
 
-export const fetchImageUploadPresignedURL = async (fileType: "image/png" | "image/jpeg", uploadCategory: "artist_image" | "album_art"): Promise<AxiosResponse<any, any>> => {
+export const fetchImageUploadPresignedURL = async (fileType: "image/png" | "image/jpeg" | "image/jpg", uploadCategory: "artist_image" | "album_art"): Promise<AxiosResponse<any, any>> => {
     return fetchPresignedURL(fileType, uploadCategory);
 }
 

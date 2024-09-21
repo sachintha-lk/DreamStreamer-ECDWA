@@ -12,7 +12,7 @@ import {
 interface ArtistTableProps {
     artists: Artist[];
     onDelete: (id: string) => void;
-    onUpdate: (id: string, name: string) => Promise<void>;
+    onUpdate: (id: string, name: string, oldArtistImageURL: string, newArtistImage: File | null) => Promise<void>;
 }
 
 const S3_BUCKET_URL =  "https://dreamstreamer-uploads.s3.us-east-1.amazonaws.com/";

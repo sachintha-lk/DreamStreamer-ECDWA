@@ -20,6 +20,6 @@ export const addArtist = async (artistName: string, artist_image_filename: strin
     await axios.post(`${API_BASE_URL}/artists`, { name: artistName, artistImgURL: artist_image_filename });
 };
 
-export const updateArtist = async (id: string, artistName: string): Promise<void> => {
-    await axios.put(`${API_BASE_URL}/artists/${id}`, { name: artistName });
+export const updateArtist = async (id: string, artistName: string, artistImageURL: string): Promise<void> => {
+    await axios.put(`${API_BASE_URL}/artists/${id}`, { name: artistName , artistImgURL: artistImageURL });
 };

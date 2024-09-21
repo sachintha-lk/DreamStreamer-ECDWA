@@ -184,7 +184,7 @@ const AddAlbumDialog: React.FC<AddAlbumDialogProps> = ({ onAdd }) => {
                         <Input 
                             id="picture" 
                             type="file" 
-                            accept=".png, .jpeg" 
+                            accept=".png, .jpeg, .jpg" 
                             onChange={(e) => {
                                 const file = e.target.files?.[0];
                                 if (file) {
