@@ -29,6 +29,7 @@ const UpdateTrackDialog: React.FC<UpdateTrackDialogProps> = ({ onUpdate, initial
     
 
     useEffect(() => {
+        if (!isOpen) return;
         fetchAlbums().then((data) => {
             console.log(data);
             setAlbums(data);
@@ -41,7 +42,7 @@ const UpdateTrackDialog: React.FC<UpdateTrackDialogProps> = ({ onUpdate, initial
               });
         });
 
-    }, []);
+    }, [isOpen]);
 
     const handleUpdate = async () => {
         if (!trackName) {

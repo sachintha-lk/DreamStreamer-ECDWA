@@ -106,9 +106,82 @@ const ManageAlbums: React.FC = () => {
         }
     };
 
-    const handleUpdateAlbum = async (id: string, albumName: string) => {
+    const handleUpdateAlbum = async (id: string, albumName: string, year: string,  selectedArtistID: string, selectedGenreID: string, initialAlbumArtURL: string, newAlbumArt: File | null) => {
         try {
-            await updateAlbum(id, albumName);
+            // check if album name, year, artist and genre are empty
+            if (!albumName) {
+                toast({
+                    title: "Error",
+                    description: "Album name is required",
+                    variant: "destructive",
+                });
+                return;
+            }
+            if (!year || year == '') {
+                toast({
+                    title: "Error",
+                    description: "Year is required",
+                    variant: "destructive",
+                });
+                return;
+            }
+            if (!selectedArtistID) {
+                toast({
+                    title: "Error",
+                    description: "Artist is required",
+                    variant: "destructive",
+                });
+                return;
+            }
+            if (!selectedGenreID) {
+                toast({
+                    title: "Error",
+                    description: "Genre is required",
+                    variant: "destructive",
+                });
+                return;
+            }
+
+            // Validate file type
+            let album_art_filename = '';
+
+            if (newAlbumArt) {
+                const fileType = newAlbumArt.type;
+                if (fileType !== "image/png" && fileType !== "image/jpeg") {
+                    toast({
+                        title: "Error",
+                        description: "Invalid file type. Please upload a PNG or JPEG file.",
+                        variant: "destructive",
+                    });
+                    return;
+                }
+
+                // Get the presigned URL
+                const response = await fetchImageUploadPresignedURL(fileType, "album_art");
+                const presignedURL = response.data?.uploadURL;
+                if (!presignedURL) {
+                    throw new Error("Error getting presigned URL");
+                }
+
+                album_art_filename = response.data?.filename;
+                // Upload the file
+                const uploadResponse = await fetch(presignedURL, {
+                    method: 'PUT',
+                    body: newAlbumArt,
+                    headers: {
+                        'Content-Type': fileType,
+                    },
+                });
+
+                if (!uploadResponse.ok) {
+                    throw new Error(`Error uploading file: ${uploadResponse.statusText}`);
+                }
+            } else {
+                album_art_filename = initialAlbumArtURL;
+            }         
+
+            await updateAlbum(id, albumName, selectedArtistID, selectedGenreID, album_art_filename, Number(year));
+            console.log("MangeAlbums id: "+ id + " album name: "+ albumName + " artist id: "+ selectedArtistID + " genre id: "+ selectedGenreID + " album art: "+ album_art_filename + " year: "+ year);
             await loadAlbums();
         } catch (error) {
             console.error("Error updating album:", error);

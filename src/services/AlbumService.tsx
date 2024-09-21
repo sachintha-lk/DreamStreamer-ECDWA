@@ -8,7 +8,9 @@ export const fetchAlbums = async (): Promise<Album[]> => {
     return response.data.map((album: any) => ({
         id: album.id.toString(),
         album_name: album.album_name,
+        artist_id: album.artist_id,
         artist_name: album.artist_name,
+        genre_id: album.genre_id,
         genre_name: album.genre_name,
         year: album.year,
         album_art_url: album.album_art_url,
@@ -31,6 +33,14 @@ export const addAlbum = async (albumName: string, year: number, artist_id: strin
     });
 };
 
-export const updateAlbum = async (id: string, albumName: string): Promise<void> => {
-    await axios.put(`${API_BASE_URL}/albums/${id}`, { name: albumName });
+
+export const updateAlbum = async (id: string, albumName: string, artist_id: string, genre_id: string, album_art: string, year: number): Promise<void> => {
+    await axios.put(`${API_BASE_URL}/albums/${id}`, {
+        name: albumName,
+        year: year,
+        artist_id: artist_id,
+        genre_id: genre_id,
+        album_art_url: album_art
+    });
+    console.log("albumService id" + id + "name" + albumName + "artist" + artist_id + "genre" + genre_id + "year" + year + "album_art_url" + album_art);
 };

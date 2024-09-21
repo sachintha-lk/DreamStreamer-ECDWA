@@ -23,6 +23,7 @@ const AddTrackDialog: React.FC<AddTrackDialogProps> = ({ onAdd }) => {
     const [audio, setAudio] = useState<File | null>(null);
 
     useEffect(() => {
+        if (!isOpen) return;
         fetchAlbums().then((data) => {
             console.log(data);
             setAlbums(data);
@@ -35,7 +36,7 @@ const AddTrackDialog: React.FC<AddTrackDialogProps> = ({ onAdd }) => {
               });
         });
 
-    }, []);
+    }, [isOpen]);
 
     const {toast} = useToast();
 

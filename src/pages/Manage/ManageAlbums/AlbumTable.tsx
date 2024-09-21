@@ -12,7 +12,7 @@ import {
 interface AlbumTableProps {
     albums: Album[];
     onDelete: (id: string) => void;
-    onUpdate: (id: string, name: string) => Promise<void>;
+    onUpdate: (id: string, name: string, artist_id: string, genre_id: string, year: string, album_art_url: string, newAlbumArt: File | null) => Promise<void>;
 }
 
 const S3_BUCKET_URL =  "https://dreamstreamer-uploads.s3.us-east-1.amazonaws.com/";
@@ -34,9 +34,6 @@ const AlbumTable: React.FC<AlbumTableProps> = ({ albums, onDelete, onUpdate }) =
         </TableHeader>
         <TableBody>
             {albums.map((album) => (
-                
-                console.log(album),
-                console.log(album.album_name),
                 <TableRow className='' key={album.id}>
                     <TableCell className='py-1 min-w-min'>{album.id}</TableCell>
                     <TableCell className='py-1'>{album.album_name}</TableCell>

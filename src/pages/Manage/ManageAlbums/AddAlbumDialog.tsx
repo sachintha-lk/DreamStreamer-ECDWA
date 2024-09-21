@@ -40,6 +40,7 @@ const AddAlbumDialog: React.FC<AddAlbumDialogProps> = ({ onAdd }) => {
     const [genres, setGenres] = useState<Genre[]>([]);
 
     useEffect(() => {
+        if (!isOpen) return;
         fetchArtists().then((data) => {
             console.log(data);
             setArtists(data);
@@ -63,7 +64,7 @@ const AddAlbumDialog: React.FC<AddAlbumDialogProps> = ({ onAdd }) => {
                 variant: "destructive"
               });
         });
-    }, []);
+    }, [isOpen]);
 
     const handleAdd = async () => {
         if (!AlbumName) {
