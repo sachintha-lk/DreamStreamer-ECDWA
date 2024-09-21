@@ -35,7 +35,7 @@ const ManageAlbums: React.FC = () => {
     const handleDeleteAlbum = async (id: string) => {
         try {
             await deleteAlbum(id);
-            setAlbums(albums.filter((album) => album.id !== id));
+            setAlbums(albums.filter((album) => album.album_id !== id));
             await loadAlbums();
         } catch (error) {
             console.error("Error deleting album:", error);

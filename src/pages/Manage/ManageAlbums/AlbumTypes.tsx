@@ -1,5 +1,5 @@
 export type Album = {
-    id: string;
+    album_id: string;
     album_name: string;
     artist_id: string;
     artist_name: string;

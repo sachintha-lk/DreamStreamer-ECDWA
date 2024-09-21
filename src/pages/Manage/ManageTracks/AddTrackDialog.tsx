@@ -115,7 +115,7 @@ const AddTrackDialog: React.FC<AddTrackDialogProps> = ({ onAdd }) => {
                                 <SelectLabel>Album</SelectLabel>
                                 
                                 {albums.map((album) => (
-                                    <SelectItem key={album.id} value={album.id}>
+                                    <SelectItem key={album.album_id} value={album.album_id}>
                                         {album.album_name}
                                     </SelectItem>
                                 ))}

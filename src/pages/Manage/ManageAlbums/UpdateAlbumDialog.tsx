@@ -75,7 +75,7 @@ const UpdateAlbumDialog: React.FC<UpdateAlbumDialogProps> = ({ onUpdate, initial
             return;
         }
         try {
-            await onUpdate(initialAlbum.id, albumName, year, selectedArtistID, selectedGenreID, initialAlbum.album_art_url || '', newAlbumArt);
+            await onUpdate(initialAlbum.album_id, albumName, year, selectedArtistID, selectedGenreID, initialAlbum.album_art_url || '', newAlbumArt);
             
             // console.log("updateDialog id" + initialAlbum.id + "name" + albumName + "artist" + selectedArtistID + "genre" + selectedGenreID + "year" + year + "album_art_url" + initialAlbum.album_art_url + "newAlbumArt" + newAlbumArt);
             setMessage({ type: 'success', message: 'Album updated successfully' });
@@ -100,7 +100,7 @@ const UpdateAlbumDialog: React.FC<UpdateAlbumDialogProps> = ({ onUpdate, initial
                 <DialogHeader>
                     <DialogTitle>Update Album</DialogTitle>
                     <DialogDescription>
-                        Update Album with id: {initialAlbum?.id}
+                        Update Album with id: {initialAlbum?.album_id}
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">

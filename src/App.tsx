@@ -13,6 +13,7 @@ import ManageAlbums from "./pages/Manage/ManageAlbums/ManageAlbums"
 import ManageTracks from "./pages/Manage/ManageTracks/ManageTracks"
 import { TabsDemo } from "./pages/Manage/Manage"
 import MainLayoutWithSideBar from "./layout/MainLayoutWithPlayer"
+import ArtistViewPage from "./pages/ArtistViewPage"
 
 function App() {
 
@@ -36,6 +37,9 @@ function App() {
             </RedirectIfAuthenticated>
           } 
         />
+
+        <Route path="artists/:id" element={<ArtistViewPage/>}/>
+
         {/* <Route element={<ProtectedRoute />}> */}
           <Route path="dashboard" element={<Dashboard/>} />
           <Route path="dashboard/manage" element={<TabsDemo/>} />
