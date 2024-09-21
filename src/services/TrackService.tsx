@@ -6,10 +6,17 @@ const API_BASE_URL= "https://q85cqy4ld4.execute-api.us-east-1.amazonaws.com/dev/
 export const fetchTracks = async (): Promise<Track[]> => {
     const response = await axios.get(`${API_BASE_URL}/tracks`);
     return response.data.map((track: any) => ({
-        id: track.id.toString(),
-        name: track.name,
+        id: track.track_id.toString(),
+        name: track.track_name,
         album_id: track.album_id,
-        audioFileURL: track.mp3_url
+        album_name: track.album_name,
+        album_art_url: track.album_art_url,
+        artist_id: track.artist_id,
+        artist_name: track.artist_name,
+        artist_image_url: track.artist_image_url,
+        audioFileURL: track.mp3_url,
+        genre_id: track.genre_id,
+        genre_name: track.genre_name
     }));
 };
 
