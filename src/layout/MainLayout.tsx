@@ -1,6 +1,6 @@
 import BottomBar from '@/components/BottomBar';
 import Navbar from '@/components/Navbar';
-import SidebarPlayerView from '@/components/SidebarPlayerView';
+import SidebarPlayerView from '@/components/sidebar/Sidebar';
 import { MusicPlayerProvider } from '@/context/MusicPlayer/MusicPlayerContext';
 import React from 'react';
 

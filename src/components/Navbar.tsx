@@ -1,23 +1,30 @@
 import { useAuth } from '@/context/Auth/AuthContext'
 import { Button } from './ui/button'
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DarkLightModeToggle } from './dark-light-mode-toggle';
 
 function Navbar() {
 
-  const {user} = useAuth();
+  const { user, isAdmin, attributes } = useAuth();
   const navigate = useNavigate();
-  const [name, setName] = useState<string | null>(null);
-  user?.getUserAttributes((err, attributes) => {
-    if (err) {
-      console.log("Error fetching user attributes: ", err);
-    } else {
-      console.log(attributes)
-      const name = attributes?.find((attr) => attr.Name === 'name')?.Value;
-      setName(name? name : null);
+  const [name, setName] = useState<string | null>(
+  );
+  
+  useEffect(() => {
+    // console.log("attributes: ", attributes);
+    if (attributes) {
+      
+      console.log("ar: ", attributes);
+
+      const name = attributes.find((attr) => attr.getName() === 'name');
+      if (name) {
+        setName(name.getValue());
+        console.log("name: ", name);
+      }
     }
-  });
+  }, [attributes]);
+ 
   return (
     <div>
         <div className="flex items-center justify-between mb-4">

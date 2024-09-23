@@ -8,7 +8,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const {toast} = useToast();
   const [user, setUser] = useState<CognitoUser | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [attributes, setAttributes] = useState<CognitoUserAttribute[] | null>(null);
+
+
   useEffect(() => {
     const currentUser = Pool.getCurrentUser();
     if (currentUser) {
@@ -19,6 +22,11 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
           console.log("Restoring session:", session);
           setUser(currentUser);
           setIsAuthenticated(true);
+          checkIfAdmin(currentUser);
+          fetchUserAttributes(currentUser);
+
+          // console.log("session", session);
+          // console.log("attr", attributes);
         }
       });
     } else {
@@ -46,6 +54,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
                   variant: "destructive",
               })
               setIsAuthenticated(false);
+              setAttributes(null);
               reject(err);
 
              
@@ -54,6 +63,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
               setUser(data.user);
               console.log("sign up success", data);
               setIsAuthenticated(true);
+              checkIfAdmin(data.user);
+              fetchUserAttributes(data.user);
               resolve(data);
             }
           }
@@ -74,11 +85,15 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
             console.log('Sign in success', result);
             setUser(user);
             setIsAuthenticated(true);
-
+            checkIfAdmin(user);
+            fetchUserAttributes(user);
             resolve(result);
           },
           onFailure: (err) => {
             setIsAuthenticated(false);
+            setIsAdmin(false);
+            setUser(null);
+            setAttributes(null);
 
             toast({
               title: err.name,
@@ -99,11 +114,40 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (currentUser) {
       currentUser.signOut();
       setIsAuthenticated(false);
+      setIsAdmin(false);
       setUser(null);
+      setAttributes(null);
+      
     }
   }, []);
 
-  const values = useMemo(() => ({ user, isAuthenticated, signUp, signIn, signOut }), [user, isAuthenticated, signUp, signIn, signOut]);
+  const checkIfAdmin = useCallback((currentUser: CognitoUser) => {
+    const currentSession = currentUser.getSignInUserSession();
+    const groups = currentSession?.getIdToken().payload['cognito:groups'];
+
+    if (groups) {
+      setIsAdmin(groups.includes('admin'));
+    }
+  }, []);
+
+  const fetchUserAttributes = useCallback((currentUser: CognitoUser) => {
+    currentUser.getUserAttributes((err, attributes) => {
+      if (err) {
+        console.error("Error fetching user attributes: ", err);
+      } else {
+        console.log("user attributes", attributes);
+        if (attributes) {
+          setAttributes(attributes);
+          console.log("attributes", attributes);
+        } else {
+          setAttributes(null);
+        }
+      }
+    });
+  }, []);
+
+
+  const values = useMemo(() => ({ user, isAuthenticated, isAdmin, attributes, signUp, signIn, signOut }), [user, isAuthenticated, isAdmin, attributes, signUp, signIn, signOut]);
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

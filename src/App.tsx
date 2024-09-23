@@ -12,7 +12,7 @@ import ManageArtists from "./pages/Manage/ManageArtists/ManageArtists"
 import ManageAlbums from "./pages/Manage/ManageAlbums/ManageAlbums"
 import ManageTracks from "./pages/Manage/ManageTracks/ManageTracks"
 import { TabsDemo } from "./pages/Manage/Manage"
-import MainLayoutWithSideBar from "./layout/MainLayoutWithPlayer"
+import MainLayout from "./layout/MainLayout"
 import ArtistViewPage from "./pages/ArtistViewPage"
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Routes>
-        <Route path="/" element={<MainLayoutWithSideBar/>} />
+        {/* <Route path="/" element={<MainLayout/>} /> */}
         <Route 
           path="login" 
           element={
