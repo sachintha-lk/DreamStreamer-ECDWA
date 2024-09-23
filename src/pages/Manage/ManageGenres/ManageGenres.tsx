@@ -5,6 +5,7 @@ import { fetchGenres, deleteGenre, addGenre, updateGenre } from '../../../servic
 import GenreTable from './GenreTable';
 import AddGenreDialog from './AddGenreDialog';
 import { useToast } from '@/components/ui/use-toast';
+import MainLayout from '@/layout/MainLayout';
 
 const ManageGenres: React.FC = () => {
     const [genres, setGenres] = useState<Genre[]>([]);
@@ -57,7 +58,7 @@ const ManageGenres: React.FC = () => {
     }
 
     return (
-        <div>
+        <MainLayout>
             <div className='m-3 flex justify-between gap-2'>
                 <h1 className='text-2xl font-semibold'>Manage Genres</h1>
                 <AddGenreDialog onAdd={handleAddGenre} />
@@ -72,7 +73,7 @@ const ManageGenres: React.FC = () => {
             ) : (
                 <GenreTable genres={genres} onDelete={handleDeleteGenre} onUpdate={handleUpdateGenre} />
             )}
-        </div>
+        </MainLayout>
     );
 };
 

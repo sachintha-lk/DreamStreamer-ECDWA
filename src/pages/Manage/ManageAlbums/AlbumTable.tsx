@@ -34,6 +34,7 @@ const AlbumTable: React.FC<AlbumTableProps> = ({ albums, onDelete, onUpdate }) =
         </TableHeader>
         <TableBody>
             {albums.map((album) => (
+                // console.log(album),
                 <TableRow className='' key={album.album_id}>
                     <TableCell className='py-1 min-w-min'>{album.album_id}</TableCell>
                     <TableCell className='py-1'>{album.album_name}</TableCell>
