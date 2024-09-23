@@ -1,5 +1,6 @@
 import React, { createContext, useState, useRef, useEffect, ReactNode } from 'react';
 import { Track } from '@/pages/Manage/ManageTracks/TrackTypes';
+import { recordPlayEvent } from '@/services/AnalyticsService';
 
 interface MusicPlayerContextType {
   currentTrack: Track | null;
@@ -58,6 +59,7 @@ export const MusicPlayerProvider = ({ children }: { children: ReactNode }) => {
       setCurrentTrack(track);
       audio.src = track.audioFileURL;
       audio.load();
+      recordPlayEvent(track.id);
     }
     audio.play();
     setIsPlaying(true);
