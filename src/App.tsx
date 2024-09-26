@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import { ThemeProvider } from "@/components/theme-provider"
 
 import Login from "./pages/Login"
@@ -13,6 +13,7 @@ import ManageAlbums from "./pages/Manage/ManageAlbums/ManageAlbums"
 import ManageTracks from "./pages/Manage/ManageTracks/ManageTracks"
 import ArtistViewPage from "./pages/ArtistViewPage"
 import Analytics from "./pages/Manage/Analytics"
+import ProtectedRoute from "./components/ProtectedRoute"
 // import AdminProtectedRoute from "./components/AdminProtectedRoute"
 
 function App() {
@@ -20,7 +21,9 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Routes>
-        {/* <Route path="/" element={<MainLayout/>} /> */}
+        {/* / redirects to /dashbaord */}
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+        
         <Route 
           path="login" 
           element={
@@ -37,10 +40,11 @@ function App() {
             </RedirectIfAuthenticated>
           } 
         />
+        <Route element={<ProtectedRoute />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="artists/:id" element={<ArtistViewPage/>}/>
+        </Route>
 
-        <Route path="artists/:id" element={<ArtistViewPage/>}/>
-
-          <Route path="dashboard" element={<Dashboard/>} />
           <Route element={<AdminRoute />}>
             <Route path="dashboard/analytics" element={<Analytics/>} />
             <Route path="dashboard/genres" element={<ManageGenres/>} />

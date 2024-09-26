@@ -1,6 +1,6 @@
 import { ReactNode, useState, useCallback, useMemo, useEffect } from 'react';
 import { CognitoUser, CognitoUserAttribute, AuthenticationDetails, CognitoUserSession, ISignUpResult } from 'amazon-cognito-identity-js';
-import Pool from './userPool';
+import { userPool as Pool } from './userPool';
 import AuthContext from './AuthContext';
 import { useToast } from '@/components/ui/use-toast';
 

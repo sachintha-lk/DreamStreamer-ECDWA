@@ -28,8 +28,7 @@ function SignUp() {
 
       console.log(user);
       console.log(email, password, confirmPassword);
-      
-      if (password == "" || password != confirmPassword) {
+      if (name.trim() == "" || password == "" || password != confirmPassword) {
         return;
       }
       signUp(name, password, email)

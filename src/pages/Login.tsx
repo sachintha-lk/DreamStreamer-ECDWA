@@ -92,22 +92,6 @@ function Login() {
                   Sign up
                 </Link>
               </div>
-              <Button variant="outline" className="w-full"
-                  onClick={() => {
-                    user?.getSession((err: Error, session: any) => {
-                          if (err) {
-                            console.error(err);
-                            alert(err);
-                            return;
-                          }
-                          console.log(session.getIdToken().getJwtToken());
-                          alert(session.getIdToken().getJwtToken());
-                        });
-                      }
-                    }
-                  >
-                    Check the user
-                  </Button>
             </div>
           </div>
           <div className="hidden lg:block lg:h-full lg:overflow-hidden">

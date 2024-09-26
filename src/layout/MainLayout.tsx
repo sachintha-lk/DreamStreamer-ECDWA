@@ -11,7 +11,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="">
         <SidebarPlayerView/>
         <Navbar />
-        <div className="mt-4">
+        <div className="mt-4 mb-12">
             {children}
         </div>
         <BottomBar />

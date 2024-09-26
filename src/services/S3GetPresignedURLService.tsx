@@ -1,9 +1,11 @@
+import { getAuthHeaders } from '@/context/Auth/userPool';
 import axios, { AxiosResponse } from 'axios';
 
 const API_BASE_URL= "https://q85cqy4ld4.execute-api.us-east-1.amazonaws.com/dev/v1"
 
 const fetchPresignedURL = async (fileType: "image/png" | "image/jpeg"| "image/jpg" |"audio/mpeg" ,uploadCategory: "artist_image" | "album_art" | "track_audio"): Promise<AxiosResponse<any, any>> => {
-    const response = await axios.get(`${API_BASE_URL}/getpresignedurl?fileType=${fileType}&uploadCategory=${uploadCategory}`);
+    const headers = await getAuthHeaders();
+    const response = await axios.get(`${API_BASE_URL}/getpresignedurl?fileType=${fileType}&uploadCategory=${uploadCategory}`, headers);
     return response;
 }
 

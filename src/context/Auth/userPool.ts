@@ -5,4 +5,36 @@ const poolData = {
   ClientId: import.meta.env.VITE_CLIENT_ID,
 };
 
-export default new CognitoUserPool(poolData);
+export const userPool = new CognitoUserPool(poolData);
+
+
+export const getAuthHeaders = async () => {
+  const token = await getIdToken();
+  return {
+      headers: {
+          Authorization: `Bearer ${token}`,
+      },
+  };
+};
+
+
+const getIdToken = (): string | null => {
+  const currentUser = userPool.getCurrentUser();
+
+  if (currentUser) {
+    let idToken = null;
+    currentUser.getSession((err: Error , session: any) => {
+      if (err) {
+        console.log(err);
+      } else if (!session.isValid()) {
+        console.log("Invalid session.");
+      } else {
+        // console.log("IdToken: " + session.getIdToken().getJwtToken());
+        idToken = session.getIdToken().getJwtToken();
+      }
+    }
+    );
+    return idToken
+  }
+  return null;
+};

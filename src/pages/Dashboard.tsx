@@ -1,7 +1,6 @@
 import AlbumCarousel from "@/components/AlbumCarousel"
 import ArtistCarousel from "@/components/ArtistCarousel"
 import TrackCarousel from "@/components/TrackCarousel"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import MainLayout from "@/layout/MainLayout"
 import { useEffect, useState } from "react"
 import { Artist } from "../types/ArtistTypes"
@@ -81,18 +80,6 @@ function Dashboard() {
             <h1 className="text-2xl font-semibold mt-3 mx-4">Tracks</h1>
             <TrackCarousel tracks={tracks} />
         </div>
-        <Card>
-          <CardHeader>
-            <CardTitle >Card Title</CardTitle>
-            <CardDescription>Card Description</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p>Card Content</p>
-          </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
-        </Card>
 
     </MainLayout>  
   )
