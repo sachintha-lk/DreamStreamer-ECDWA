@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Genre } from './GenreTypes';
+import { Genre } from '../../../types/GenreTypes';
 import { fetchGenres, deleteGenre, addGenre, updateGenre } from '../../../services/GenreService';
 import GenreTable from './GenreTable';
 import AddGenreDialog from './AddGenreDialog';

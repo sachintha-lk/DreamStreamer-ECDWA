@@ -1,5 +1,5 @@
 import React from 'react';
-import { Album } from '../pages/Manage/ManageAlbums/AlbumTypes';
+import { Album } from '../types/AlbumTypes';
 
 export type AlbumCardProps = {
     album: Album;

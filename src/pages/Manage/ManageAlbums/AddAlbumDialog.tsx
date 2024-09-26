@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { AddAlbumMessage } from './AlbumTypes';
+import { AddAlbumMessage } from '../../../types/AlbumTypes';
 import { useToast } from '@/components/ui/use-toast';
 import {
     Select,
@@ -15,8 +15,8 @@ import {
     SelectValue,
   } from "@/components/ui/select"
 
-import { Artist } from '../ManageArtists/ArtistTypes';
-import { Genre } from '../ManageGenres/GenreTypes';
+import { Artist } from '../../../types/ArtistTypes';
+import { Genre } from '../../../types/GenreTypes';
 import { fetchArtists }  from '../../../services/ArtistService';
 import { fetchGenres }  from '../../../services/GenreService';
 

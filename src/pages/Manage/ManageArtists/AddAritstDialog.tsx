@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { AddArtistMessage } from './ArtistTypes';
+import { AddArtistMessage } from '../../../types/ArtistTypes';
 import { useToast } from '@/components/ui/use-toast';
 
 interface AddArtistDialogProps {

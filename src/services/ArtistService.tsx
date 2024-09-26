@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Artist, ArtistDetailed } from '../pages/Manage/ManageArtists/ArtistTypes';
-import { Album } from '@/pages/Manage/ManageAlbums/AlbumTypes';
+import { Artist, ArtistDetailed } from '../types/ArtistTypes';
+import { Album } from '@/types/AlbumTypes';
 
 const API_BASE_URL= "https://q85cqy4ld4.execute-api.us-east-1.amazonaws.com/dev/v1"
 

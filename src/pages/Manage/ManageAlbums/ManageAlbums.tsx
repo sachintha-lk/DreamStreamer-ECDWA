@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Album } from './AlbumTypes';
+import { Album } from '../../../types/AlbumTypes';
 import { fetchAlbums, deleteAlbum, addAlbum, updateAlbum } from '../../../services/AlbumService';
 import AlbumTable from './AlbumTable';
 import AddAlbumDialog from './AddAlbumDialog';

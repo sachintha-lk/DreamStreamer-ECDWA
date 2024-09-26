@@ -95,12 +95,12 @@ function Analytics() {
       <div className="mt-8">
         <h2 className="text-lg font-bold">Most Played Genres</h2>
         <ul className="mt-2">
-          {analytics.most_played_genres.map((genre) => (
-            <li key={genre.genre_name} className="flex justify-between">
-              <span>{genre.genre_name}</span>
-              <span>{genre.total_plays}</span>
-            </li>
-          ))}
+          {/* {analytics.most_played_genres.map((genre) => ( */}
+            {/* //  <li key={genre.genre_name} className="flex justify-between"> */}
+                {/* <span>{genre.genre_name}</span> */}
+                {/* <span>{genre.total_plays}</span> */}
+            {/* // </li> */}
+          {/* ))} */}
         </ul>
       </div>
 
@@ -108,12 +108,12 @@ function Analytics() {
       <div className="mt-8">
         <h2 className="text-lg font-bold">Most Played Tracks</h2>
         <ul className="mt-2">
-          {analytics.most_played_tracks.map((track) => (
+          {/* {analytics.most_played_tracks.map((track) => (
             <li key={track.track_name} className="flex justify-between">
               <span>{track.track_name}</span>
               <span>{track.total_plays}</span>
             </li>
-          ))}
+          ))} */}
         </ul>
       </div>
 
@@ -121,12 +121,12 @@ function Analytics() {
       <div className="mt-8">
         <h2 className="text-lg font-bold">Most Played Artists</h2>
         <ul className="mt-2">
-          {analytics.most_played_artists.map((artist) => (
+          {/* {analytics.most_played_artists.map((artist) => (
             <li key={artist.artist_name} className="flex justify-between">
               <span>{artist.artist_name}</span>
               <span>{artist.total_plays}</span>
             </li>
-          ))}
+          ))} */}
         </ul>
       </div>
 
@@ -134,12 +134,12 @@ function Analytics() {
       <div className="mt-8">
         <h2 className="text-lg font-bold">Most Played Albums</h2>
         <ul className="mt-2">
-          {analytics.most_played_albums.map((album) => (
+          {/* {analytics.most_played_albums.map((album) => (
             <li key={album.album_name} className="flex justify-between">
               <span>{album.album_name}</span>
               <span>{album.total_plays}</span>
             </li>
-          ))}
+          ))} */}
         </ul>
       </div>
     </MainLayout>

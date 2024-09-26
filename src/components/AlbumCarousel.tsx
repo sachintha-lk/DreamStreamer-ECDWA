@@ -1,7 +1,7 @@
 import React from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import AlbumCard from "./AlbumCard"
-import { Album } from '@/pages/Manage/ManageAlbums/AlbumTypes';
+import { Album } from '@/types/AlbumTypes';
 
 
 interface AlbumCarouselProps {

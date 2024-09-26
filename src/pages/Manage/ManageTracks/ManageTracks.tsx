@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Track } from './TrackTypes';
+import { Track } from '../../../types/TrackTypes';
 import { fetchTracks, deleteTrack, addTrack, updateTrack } from '../../../services/TrackService';
 import TrackTable from './TrackTable';
 import AddTrackDialog from './AddTrackDialog';

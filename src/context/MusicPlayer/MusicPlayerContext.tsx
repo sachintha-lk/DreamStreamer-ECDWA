@@ -1,5 +1,5 @@
 import React, { createContext, useState, useRef, useEffect, ReactNode } from 'react';
-import { Track } from '@/pages/Manage/ManageTracks/TrackTypes';
+import { Track } from '@/types/TrackTypes';
 import { recordPlayEvent } from '@/services/AnalyticsService';
 
 interface MusicPlayerContextType {

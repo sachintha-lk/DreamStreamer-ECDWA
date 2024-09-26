@@ -6,8 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { fetchAlbums } from '@/services/AlbumService';
 import { useToast } from '@/components/ui/use-toast';
-import { Album } from '../ManageAlbums/AlbumTypes';
-import { Track } from './TrackTypes';
+import { Album } from '../../../types/AlbumTypes';
+import { Track } from '../../../types/TrackTypes';
 
 interface UpdateTrackDialogProps {
     onUpdate: (id: string, trackName: string, album_id: string, existingAudioFileURL: string, newAudioFile: File | null) => Promise<void>;

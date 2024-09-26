@@ -1,7 +1,7 @@
 import MainLayout from '@/layout/MainLayout';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ArtistDetailed } from './Manage/ManageArtists/ArtistTypes';
+import { ArtistDetailed } from '../types/ArtistTypes';
 import { getArtist } from '@/services/ArtistService';
 
 const ArtistViewPage: React.FC = () => {

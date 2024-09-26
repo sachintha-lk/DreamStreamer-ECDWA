@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { PlayCircleIcon } from 'lucide-react';
-import { Track } from '../pages/Manage/ManageTracks/TrackTypes';
+import { Track } from '../types/TrackTypes';
 import { MusicPlayerContext } from '../context/MusicPlayer/MusicPlayerContext';
 
 type TrackCardProps = {

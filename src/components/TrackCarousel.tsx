@@ -1,7 +1,7 @@
 import React from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import TrackCard from './TrackCard';
-import { Track } from '../pages/Manage/ManageTracks/TrackTypes';
+import { Track } from '../types/TrackTypes';
 
 interface TrackCarouselProps {
   tracks: Track[];

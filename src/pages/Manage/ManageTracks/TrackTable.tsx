@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Track } from './TrackTypes';
+import { Track } from '../../../types/TrackTypes';
 import TrackDeleteConfirmationDialog from './TrackDeleteConfirmationDialog';
 import UpdateTrackDialog from './UpdateTrackDialog';
 

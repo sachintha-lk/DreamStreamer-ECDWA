@@ -13,11 +13,11 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
-import { Genre } from '../ManageGenres/GenreTypes';
-import { Artist } from '../ManageArtists/ArtistTypes';
+import { Genre } from '../../../types/GenreTypes';
+import { Artist } from '../../../types/ArtistTypes';
 import { fetchArtists } from '@/services/ArtistService';
 import { fetchGenres } from '@/services/GenreService';
-import { Album } from './AlbumTypes';
+import { Album } from '../../../types/AlbumTypes';
 
 interface UpdateAlbumDialogProps {
     onUpdate: (id: string, albumName: string, year: string,  selectedArtistID: string, selectedGenreID: string, initialAlbumArtURL: string, newAlbumArt: File | null) => Promise<void>;

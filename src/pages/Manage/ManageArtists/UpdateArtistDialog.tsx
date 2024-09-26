@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { Artist } from './ArtistTypes';
+import { Artist } from '../../../types/ArtistTypes';
 
 interface UpdateArtistDialogProps {
     onUpdate: (artistId: string, artistName: string, oldArtistImageURL: string, newArtistImage: File | null) => Promise<void>;

@@ -3,10 +3,10 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { AddTrackMessage } from './TrackTypes';
+import { AddTrackMessage } from '../../../types/TrackTypes';
 import { useToast } from '@/components/ui/use-toast';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Album } from '../ManageAlbums/AlbumTypes';
+import { Album } from '../../../types/AlbumTypes';
 import { fetchAlbums } from '@/services/AlbumService';
 
 interface AddTrackDialogProps {

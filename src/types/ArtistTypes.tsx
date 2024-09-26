@@ -1,4 +1,4 @@
-import { Album } from "../ManageAlbums/AlbumTypes";
+import { Album } from "./AlbumTypes";
 
 export type Artist = {
     id: string;
