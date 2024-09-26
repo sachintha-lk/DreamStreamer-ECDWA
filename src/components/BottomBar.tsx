@@ -7,7 +7,7 @@ const BottomBar = () => {
   const {
     currentTrack,
     isPlaying,
-    playTrack,
+    // playTrack,
     pauseTrack,
     resumeTrack,
     trackProgress,

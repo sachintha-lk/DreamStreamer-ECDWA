@@ -6,7 +6,11 @@ import { DarkLightModeToggle } from './dark-light-mode-toggle';
 
 function Navbar() {
 
-  const { user, isAdmin, attributes } = useAuth();
+  const { 
+    user,
+    // isAdmin,
+    attributes
+   } = useAuth();
   const navigate = useNavigate();
   const [name, setName] = useState<string | null>(
   );

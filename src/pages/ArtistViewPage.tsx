@@ -15,6 +15,7 @@ const ArtistViewPage: React.FC = () => {
     getArtist(id).then((data) => {
         setArtist(data);
         console.log("menna", data);
+        console.log(artist)
     }).catch((error) => {
         console.log(error);
     });

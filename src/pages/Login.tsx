@@ -27,7 +27,7 @@ function Login() {
     if (password == "") {
       return;
     }
-    signIn(email, password).then((data) => {
+    signIn(email, password).then(() => {
       // console.log(data);
       // data.
       navigate('/dashboard');

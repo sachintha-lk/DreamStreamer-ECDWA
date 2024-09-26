@@ -4,18 +4,20 @@ import { Music, Album, AudioLines, Mic2 } from 'lucide-react';
 import { getAnalytics } from '@/services/AnalyticsService';
 import { useEffect, useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
+import { AnalyticsData } from '@/types/AnalyticsTypes';
 
 function Analytics() {
-  const [analytics, setAnalytics] = useState({
-    total_genres: 0,
-    total_artists: 0,
-    total_albums: 0,
-    total_tracks: 0,
-    total_play_count: 0,
-    most_played_genres: [],
+  const [analytics, setAnalytics] = useState<AnalyticsData>({
+    latest_plays: [],
     most_played_tracks: [],
-    most_played_artists: [],
     most_played_albums: [],
+    most_played_artists: [],
+    most_played_genres: [],
+    total_play_count: 0,
+    total_genres: 0,
+    total_tracks: 0,
+    total_albums: 0,
+    total_artists: 0,
   });
 
   useEffect(() => {
@@ -27,7 +29,7 @@ function Analytics() {
         console.error('Error fetching analytics:', error);
         toast({
           title: 'Error',
-          description: `Error retrieving analytics`,
+          description: 'Error retrieving analytics',
           variant: 'destructive',
         });
       }
@@ -35,6 +37,7 @@ function Analytics() {
 
     fetchAnalytics();
   }, []);
+
 
   return (
     <MainLayout>
@@ -82,67 +85,90 @@ function Analytics() {
             <p className="text-xs text-muted-foreground">Total tracks</p>
           </CardContent>
         </Card>
-      </div>
-
-      {/* Total Play Count */}
-      <div className="mt-8">
-        <h2 className="text-lg font-bold">Total Play Count</h2>
+        {/* Total Play Count */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">Total Play Count</CardTitle>
+          </CardHeader>
+          <CardContent>
         <div className="text-2xl font-bold">{analytics.total_play_count}</div>
         <p className="text-xs text-muted-foreground">Total plays across all tracks</p>
+          </CardContent>
+        </Card>
       </div>
+      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-2 mt-8">
 
-      {/* Most Played Genres */}
-      <div className="mt-8">
-        <h2 className="text-lg font-bold">Most Played Genres</h2>
+
+        {/* Most Played Genres */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">Most Played Genres</CardTitle>
+          </CardHeader>
+          <CardContent>
         <ul className="mt-2">
-          {/* {analytics.most_played_genres.map((genre) => ( */}
-            {/* //  <li key={genre.genre_name} className="flex justify-between"> */}
-                {/* <span>{genre.genre_name}</span> */}
-                {/* <span>{genre.total_plays}</span> */}
-            {/* // </li> */}
-          {/* ))} */}
+          {analytics.most_played_genres.map((genre) => (
+            <li key={genre.genre_name} className="flex justify-between">
+          <span>{genre.genre_name}</span>
+          <span>{genre.total_plays}</span>
+            </li>
+          ))}
         </ul>
-      </div>
+          </CardContent>
+        </Card>
 
-      {/* Most Played Tracks */}
-      <div className="mt-8">
-        <h2 className="text-lg font-bold">Most Played Tracks</h2>
+        {/* Most Played Tracks */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">Most Played Tracks</CardTitle>
+          </CardHeader>
+          <CardContent>
         <ul className="mt-2">
-          {/* {analytics.most_played_tracks.map((track) => (
+          {analytics.most_played_tracks.map((track) => (
             <li key={track.track_name} className="flex justify-between">
-              <span>{track.track_name}</span>
-              <span>{track.total_plays}</span>
+          <span>{track.track_name}</span>
+          <span>{track.total_plays}</span>
             </li>
-          ))} */}
+          ))}
         </ul>
-      </div>
+          </CardContent>
+        </Card>
 
-      {/* Most Played Artists */}
-      <div className="mt-8">
-        <h2 className="text-lg font-bold">Most Played Artists</h2>
+        {/* Most Played Artists */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">Most Played Artists</CardTitle>
+          </CardHeader>
+          <CardContent>
         <ul className="mt-2">
-          {/* {analytics.most_played_artists.map((artist) => (
+          {analytics.most_played_artists.map((artist) => (
             <li key={artist.artist_name} className="flex justify-between">
-              <span>{artist.artist_name}</span>
-              <span>{artist.total_plays}</span>
+          <span>{artist.artist_name}</span>
+          <span>{artist.total_plays}</span>
             </li>
-          ))} */}
+          ))}
         </ul>
-      </div>
+          </CardContent>
+        </Card>
 
-      {/* Most Played Albums */}
-      <div className="mt-8">
-        <h2 className="text-lg font-bold">Most Played Albums</h2>
+        {/* Most Played Albums */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">Most Played Albums</CardTitle>
+          </CardHeader>
+          <CardContent>
         <ul className="mt-2">
-          {/* {analytics.most_played_albums.map((album) => (
+          {analytics.most_played_albums.map((album) => (
             <li key={album.album_name} className="flex justify-between">
-              <span>{album.album_name}</span>
-              <span>{album.total_plays}</span>
+          <span>{album.album_name}</span>
+          <span>{album.total_plays}</span>
             </li>
-          ))} */}
+          ))}
         </ul>
+          </CardContent>
+        </Card>
       </div>
     </MainLayout>
+    
   );
 }
 
