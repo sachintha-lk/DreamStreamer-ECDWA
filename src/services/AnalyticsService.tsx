@@ -1,14 +1,17 @@
+import { getAuthHeaders } from '@/context/Auth/userPool';
 import { AnalyticsData } from '@/types/AnalyticsTypes';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 const API_BASE_URL= "https://q85cqy4ld4.execute-api.us-east-1.amazonaws.com/dev/v1"
 
 export const recordPlayEvent = async (trackId: string): Promise<void> => {
-    await axios.post(`${API_BASE_URL}/analytics/playevent`, { trackId });   
+  const headers = await getAuthHeaders();
+  await axios.post(`${API_BASE_URL}/analytics/playevent`, { trackId }, headers);
 };
 
 export const getAnalytics = async (): Promise<AnalyticsData> => {
-  const response = await axios.get(`${API_BASE_URL}/analytics`);
+  const headers = await getAuthHeaders();
+  const response = await axios.get(`${API_BASE_URL}/analytics`, headers);
   
   return {
     latest_plays: response.data.latest_plays.map((track: any) => ({
@@ -49,7 +52,8 @@ export const getAnalytics = async (): Promise<AnalyticsData> => {
 };
 
 export const emailReport = async (): Promise<any> => {
-  const response = await axios.post(`${API_BASE_URL}/analytics/email-report`);
+  const headers = await getAuthHeaders();
+  const response = await axios.post(`${API_BASE_URL}/analytics/email-report`, {}, headers);
 
   return response.data;
 }

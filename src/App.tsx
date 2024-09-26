@@ -13,6 +13,7 @@ import ManageAlbums from "./pages/Manage/ManageAlbums/ManageAlbums"
 import ManageTracks from "./pages/Manage/ManageTracks/ManageTracks"
 import ArtistViewPage from "./pages/ArtistViewPage"
 import Analytics from "./pages/Manage/Analytics"
+import ProtectedRoute from "./components/ProtectedRoute"
 // import AdminProtectedRoute from "./components/AdminProtectedRoute"
 
 function App() {
@@ -39,10 +40,11 @@ function App() {
             </RedirectIfAuthenticated>
           } 
         />
+        <Route element={<ProtectedRoute />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="artists/:id" element={<ArtistViewPage/>}/>
+        </Route>
 
-        <Route path="artists/:id" element={<ArtistViewPage/>}/>
-
-          <Route path="dashboard" element={<Dashboard/>} />
           <Route element={<AdminRoute />}>
             <Route path="dashboard/analytics" element={<Analytics/>} />
             <Route path="dashboard/genres" element={<ManageGenres/>} />
