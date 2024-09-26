@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import { ThemeProvider } from "@/components/theme-provider"
 
 import Login from "./pages/Login"
@@ -20,7 +20,9 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Routes>
-        {/* <Route path="/" element={<MainLayout/>} /> */}
+        {/* / redirects to /dashbaord */}
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+        
         <Route 
           path="login" 
           element={

@@ -1,10 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import MainLayout from '@/layout/MainLayout';
 import { Music, Album, AudioLines, Mic2 } from 'lucide-react';
-import { getAnalytics } from '@/services/AnalyticsService';
+import { emailReport, getAnalytics } from '@/services/AnalyticsService';
 import { useEffect, useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { AnalyticsData } from '@/types/AnalyticsTypes';
+import { Button } from '@/components/ui/button';
 
 function Analytics() {
   const [analytics, setAnalytics] = useState<AnalyticsData>({
@@ -38,9 +39,33 @@ function Analytics() {
     fetchAnalytics();
   }, []);
 
-
+  const emailReportHandler = async () => { 
+    emailReport().then((data) => { // data is the respose.data which has data msg and status
+      toast({
+        title: 'Email Report Sent',
+        description: data.message,
+        variant: 'default',
+      });
+    }).catch((error) => {
+      toast({
+        title: 'Error',
+        description: error.response.data.message,
+        variant: 'destructive',
+      });
+    });
+  };
+      
   return (
-    <MainLayout>
+    <MainLayout>  
+      <h1 className='text-3xl font-bold'>Analytics</h1>
+      <p className='text-muted-foreground'>
+        Analytics about music in DreamStreamer
+      </p>
+      <Button variant='default' className='my-4' onClick={
+        () => emailReportHandler()
+      }>
+        Email Report
+      </Button>
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -142,6 +167,7 @@ function Analytics() {
         <ul className="mt-2">
           {analytics.most_played_artists.map((artist) => (
             <li key={artist.artist_name} className="flex justify-between">
+            <img src={artist.artist_image_url} alt={artist.artist_name} className="w-8 h-8 rounded-full" />
           <span>{artist.artist_name}</span>
           <span>{artist.total_plays}</span>
             </li>
@@ -166,7 +192,7 @@ function Analytics() {
         </ul>
           </CardContent>
         </Card>
-      </div>
+      </div>    
     </MainLayout>
     
   );

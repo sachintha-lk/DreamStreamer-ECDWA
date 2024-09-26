@@ -81,18 +81,6 @@ function Dashboard() {
             <h1 className="text-2xl font-semibold mt-3 mx-4">Tracks</h1>
             <TrackCarousel tracks={tracks} />
         </div>
-        <Card>
-          <CardHeader>
-            <CardTitle >Card Title</CardTitle>
-            <CardDescription>Card Description</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p>Card Content</p>
-          </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
-        </Card>
 
     </MainLayout>  
   )

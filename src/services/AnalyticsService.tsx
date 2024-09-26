@@ -1,5 +1,5 @@
 import { AnalyticsData } from '@/types/AnalyticsTypes';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 const API_BASE_URL= "https://q85cqy4ld4.execute-api.us-east-1.amazonaws.com/dev/v1"
 
@@ -47,3 +47,9 @@ export const getAnalytics = async (): Promise<AnalyticsData> => {
     total_artists: response.data.total_artists,
   };
 };
+
+export const emailReport = async (): Promise<any> => {
+  const response = await axios.post(`${API_BASE_URL}/analytics/email-report`);
+
+  return response.data;
+}
