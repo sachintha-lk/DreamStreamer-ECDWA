@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Track } from './TrackTypes';
+import { Track } from '../../../types/TrackTypes';
 import { fetchTracks, deleteTrack, addTrack, updateTrack } from '../../../services/TrackService';
 import TrackTable from './TrackTable';
 import AddTrackDialog from './AddTrackDialog';
 import { useToast } from '@/components/ui/use-toast';
 import { fetchAudioUploadPresignedURL } from '@/services/S3GetPresignedURLService';
+import MainLayout from '@/layout/MainLayout';
 
 const ManageTracks: React.FC = () => {
     const [tracks, setTracks] = useState<Track[]>([]);
@@ -149,7 +150,7 @@ const ManageTracks: React.FC = () => {
     }
 
     return (
-        <div>
+        <MainLayout>
             <div className='m-3 flex justify-between gap-2'>
                 <h1 className='text-2xl font-semibold'>Manage Track</h1>
                 <AddTrackDialog onAdd={handleAddTrack} />
@@ -164,7 +165,7 @@ const ManageTracks: React.FC = () => {
             ) : (
                 <TrackTable tracks={tracks} onDelete={handleDeleteTrack} onUpdate={handleUpdateTrack} />
             )}
-        </div>
+        </MainLayout>
     );
 };
 

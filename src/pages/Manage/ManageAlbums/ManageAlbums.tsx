@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Album } from './AlbumTypes';
+import { Album } from '../../../types/AlbumTypes';
 import { fetchAlbums, deleteAlbum, addAlbum, updateAlbum } from '../../../services/AlbumService';
 import AlbumTable from './AlbumTable';
 import AddAlbumDialog from './AddAlbumDialog';
 import { useToast } from '@/components/ui/use-toast';
 import { fetchImageUploadPresignedURL } from '@/services/S3GetPresignedURLService';
+import MainLayout from '@/layout/MainLayout';
 
 const ManageAlbums: React.FC = () => {
     const [albums, setAlbums] = useState<Album[]>([]);
@@ -35,7 +36,7 @@ const ManageAlbums: React.FC = () => {
     const handleDeleteAlbum = async (id: string) => {
         try {
             await deleteAlbum(id);
-            setAlbums(albums.filter((album) => album.id !== id));
+            setAlbums(albums.filter((album) => album.album_id !== id));
             await loadAlbums();
         } catch (error) {
             console.error("Error deleting album:", error);
@@ -194,7 +195,7 @@ const ManageAlbums: React.FC = () => {
     };
 
     return (
-        <div>
+        <MainLayout>
             <div className='m-3 flex justify-between gap-2'>
                 <h1 className='text-2xl font-semibold'>Manage Albums</h1>
                 <AddAlbumDialog onAdd={handleAddAlbum} />
@@ -209,7 +210,7 @@ const ManageAlbums: React.FC = () => {
             ) : (
                 <AlbumTable albums={albums} onDelete={handleDeleteAlbum} onUpdate={handleUpdateAlbum} />
             )}
-        </div>
+        </MainLayout>
     );
 };
 

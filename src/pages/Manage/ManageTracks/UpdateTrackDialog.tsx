@@ -6,8 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { fetchAlbums } from '@/services/AlbumService';
 import { useToast } from '@/components/ui/use-toast';
-import { Album } from '../ManageAlbums/AlbumTypes';
-import { Track } from './TrackTypes';
+import { Album } from '../../../types/AlbumTypes';
+import { Track } from '../../../types/TrackTypes';
 
 interface UpdateTrackDialogProps {
     onUpdate: (id: string, trackName: string, album_id: string, existingAudioFileURL: string, newAudioFile: File | null) => Promise<void>;
@@ -110,7 +110,7 @@ const UpdateTrackDialog: React.FC<UpdateTrackDialogProps> = ({ onUpdate, initial
                         <SelectGroup>
                             <SelectLabel>Album</SelectLabel>
                             {albums.map((album) => (
-                                <SelectItem key={album.id} value={album.id}>
+                                <SelectItem key={album.album_id} value={album.album_id}>
                                     {album.album_name}
                                 </SelectItem>
                             ))}

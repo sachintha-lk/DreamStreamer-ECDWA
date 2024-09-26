@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Album } from './AlbumTypes';
+import { Album } from '../../../types/AlbumTypes';
 import AlbumDeleteConfirmationDialog from './AlbumDeleteConfirmationDialog';
 import UpdateAlbumDialog from './UpdateAlbumDialog';
 import {
@@ -34,8 +34,9 @@ const AlbumTable: React.FC<AlbumTableProps> = ({ albums, onDelete, onUpdate }) =
         </TableHeader>
         <TableBody>
             {albums.map((album) => (
-                <TableRow className='' key={album.id}>
-                    <TableCell className='py-1 min-w-min'>{album.id}</TableCell>
+                // console.log(album),
+                <TableRow className='' key={album.album_id}>
+                    <TableCell className='py-1 min-w-min'>{album.album_id}</TableCell>
                     <TableCell className='py-1'>{album.album_name}</TableCell>
                     <TableCell className='py-1'>{album.artist_name}</TableCell>
                     <TableCell className='py-1'>{album.genre_name}</TableCell>
@@ -71,7 +72,7 @@ const AlbumTable: React.FC<AlbumTableProps> = ({ albums, onDelete, onUpdate }) =
                             onUpdate={onUpdate}
                         />
                         <AlbumDeleteConfirmationDialog
-                            id={album.id}
+                            id={album.album_id}
                             name={album.album_name}
                             onConfirm={onDelete}
                         />

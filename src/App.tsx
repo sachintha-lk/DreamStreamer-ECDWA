@@ -11,16 +11,16 @@ import ManageGenres from "./pages/Manage/ManageGenres/ManageGenres"
 import ManageArtists from "./pages/Manage/ManageArtists/ManageArtists"
 import ManageAlbums from "./pages/Manage/ManageAlbums/ManageAlbums"
 import ManageTracks from "./pages/Manage/ManageTracks/ManageTracks"
-import { TabsDemo } from "./pages/Manage/Manage"
+import ArtistViewPage from "./pages/ArtistViewPage"
+import Analytics from "./pages/Manage/Analytics"
+// import AdminProtectedRoute from "./components/AdminProtectedRoute"
 
 function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Routes>
-        <Route path="/" element={<div>
-         
-        </div>} />
+        {/* <Route path="/" element={<MainLayout/>} /> */}
         <Route 
           path="login" 
           element={
@@ -37,17 +37,17 @@ function App() {
             </RedirectIfAuthenticated>
           } 
         />
-        {/* <Route element={<ProtectedRoute />}> */}
+
+        <Route path="artists/:id" element={<ArtistViewPage/>}/>
+
           <Route path="dashboard" element={<Dashboard/>} />
-          <Route path="dashboard/manage" element={<TabsDemo/>} />
-          <Route path="dashboard/genres" element={<ManageGenres/>} />
-          <Route path="dashboard/artists" element={<ManageArtists/>} />
-          <Route path="dashboard/albums" element={<ManageAlbums/>} />
-          <Route path="dashboard/tracks" element={<ManageTracks/>} />
-
-
-          
-        
+          <Route element={<AdminRoute />}>
+            <Route path="dashboard/analytics" element={<Analytics/>} />
+            <Route path="dashboard/genres" element={<ManageGenres/>} />
+            <Route path="dashboard/artists" element={<ManageArtists/>} />
+            <Route path="dashboard/albums" element={<ManageAlbums/>} />
+            <Route path="dashboard/tracks" element={<ManageTracks/>} />
+          </Route>
 
         {/* </Route> */}
 

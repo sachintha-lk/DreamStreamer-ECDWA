@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Artist } from './ArtistTypes';
+import { Artist } from '../../../types/ArtistTypes';
 import ArtistDeleteConfirmationDialog from './ArtistDeleteConfirmationDialog';
 import UpdateArtistDialog from './UpdateArtistDialog';
 import {

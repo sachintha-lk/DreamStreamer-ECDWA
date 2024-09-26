@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Artist } from './ArtistTypes';
+import { Artist } from '../../../types/ArtistTypes';
 import { fetchArtists, deleteArtist, addArtist, updateArtist } from '../../../services/ArtistService';
 import ArtistTable from './ArtistTable';
 import AddArtistDialog from './AddAritstDialog';
 import { useToast } from '@/components/ui/use-toast';
 import { fetchImageUploadPresignedURL } from '@/services/S3GetPresignedURLService';
+import MainLayout from '@/layout/MainLayout';
 
 const ManageArtists: React.FC = () => {
     const [artists, setArtists] = useState<Artist[]>([]);
@@ -156,7 +157,7 @@ const ManageArtists: React.FC = () => {
     };
 
     return (
-        <div>
+        <MainLayout>
             <div className='m-3 flex justify-between gap-2'>
                 <h1 className='text-2xl font-semibold'>Manage Artist</h1>
                 <AddArtistDialog onAdd={handleAddArtist} />
@@ -171,7 +172,7 @@ const ManageArtists: React.FC = () => {
             ) : (
                 <ArtistTable artists={artists} onDelete={handleDeleteArtist} onUpdate={handleUpdateArtist} />
             )}
-        </div>
+        </MainLayout>
     );
 };
 

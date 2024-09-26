@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Genre } from './GenreTypes';
+import { Genre } from '../../../types/GenreTypes';
 import GenreDeleteConfirmationDialog from './GenreDeleteConfirmationDialog';
 import UpdateGenreDialog from './UpdateGenreDialog';
 

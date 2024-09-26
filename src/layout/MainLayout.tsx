@@ -1,15 +1,22 @@
-import { DarkLightModeToggle } from '@/components/dark-light-mode-toggle';
+import BottomBar from '@/components/BottomBar';
 import Navbar from '@/components/Navbar';
+import SidebarPlayerView from '@/components/sidebar/Sidebar';
+import { MusicPlayerProvider } from '@/context/MusicPlayer/MusicPlayerContext';
 import React from 'react';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='w-full h-full'>
-        <Navbar/>
-
-        <div className='m-2'>
+    <div className="ml-60 p-8">
+      <MusicPlayerProvider>
+      <div className="">
+        <SidebarPlayerView/>
+        <Navbar />
+        <div className="mt-4">
             {children}
         </div>
+        <BottomBar />
+      </div>
+    </MusicPlayerProvider>
     </div>
   );
 }

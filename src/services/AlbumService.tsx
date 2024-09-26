@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { Album } from '../pages/Manage/ManageAlbums/AlbumTypes';
+import { Album } from '../types/AlbumTypes';
 
 const API_BASE_URL= "https://q85cqy4ld4.execute-api.us-east-1.amazonaws.com/dev/v1"
 
 export const fetchAlbums = async (): Promise<Album[]> => {
     const response = await axios.get(`${API_BASE_URL}/albums`);
     return response.data.map((album: any) => ({
-        id: album.id.toString(),
+        album_id: album.id.toString(),
         album_name: album.album_name,
         artist_id: album.artist_id,
         artist_name: album.artist_name,

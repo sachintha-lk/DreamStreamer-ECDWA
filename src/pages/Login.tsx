@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/Auth/AuthContext";
 import { FormEvent, useEffect, useState } from "react";
 import {Link, useNavigate} from "react-router-dom"
 
@@ -27,7 +27,7 @@ function Login() {
     if (password == "") {
       return;
     }
-    signIn(email, password).then((data) => {
+    signIn(email, password).then(() => {
       // console.log(data);
       // data.
       navigate('/dashboard');

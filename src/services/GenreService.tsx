@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Genre } from '../pages/Manage/ManageGenres/GenreTypes';
+import { Genre } from '../types/GenreTypes';
 
 const API_BASE_URL= "https://q85cqy4ld4.execute-api.us-east-1.amazonaws.com/dev/v1"
 

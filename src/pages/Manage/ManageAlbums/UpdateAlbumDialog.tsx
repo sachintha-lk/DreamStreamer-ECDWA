@@ -13,11 +13,11 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
-import { Genre } from '../ManageGenres/GenreTypes';
-import { Artist } from '../ManageArtists/ArtistTypes';
+import { Genre } from '../../../types/GenreTypes';
+import { Artist } from '../../../types/ArtistTypes';
 import { fetchArtists } from '@/services/ArtistService';
 import { fetchGenres } from '@/services/GenreService';
-import { Album } from './AlbumTypes';
+import { Album } from '../../../types/AlbumTypes';
 
 interface UpdateAlbumDialogProps {
     onUpdate: (id: string, albumName: string, year: string,  selectedArtistID: string, selectedGenreID: string, initialAlbumArtURL: string, newAlbumArt: File | null) => Promise<void>;
@@ -75,7 +75,7 @@ const UpdateAlbumDialog: React.FC<UpdateAlbumDialogProps> = ({ onUpdate, initial
             return;
         }
         try {
-            await onUpdate(initialAlbum.id, albumName, year, selectedArtistID, selectedGenreID, initialAlbum.album_art_url || '', newAlbumArt);
+            await onUpdate(initialAlbum.album_id, albumName, year, selectedArtistID, selectedGenreID, initialAlbum.album_art_url || '', newAlbumArt);
             
             // console.log("updateDialog id" + initialAlbum.id + "name" + albumName + "artist" + selectedArtistID + "genre" + selectedGenreID + "year" + year + "album_art_url" + initialAlbum.album_art_url + "newAlbumArt" + newAlbumArt);
             setMessage({ type: 'success', message: 'Album updated successfully' });
@@ -100,7 +100,7 @@ const UpdateAlbumDialog: React.FC<UpdateAlbumDialogProps> = ({ onUpdate, initial
                 <DialogHeader>
                     <DialogTitle>Update Album</DialogTitle>
                     <DialogDescription>
-                        Update Album with id: {initialAlbum?.id}
+                        Update Album with id: {initialAlbum?.album_id}
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { Artist } from '../pages/Manage/ManageArtists/ArtistTypes';
+import { Artist, ArtistDetailed } from '../types/ArtistTypes';
+import { Album } from '@/types/AlbumTypes';
 
 const API_BASE_URL= "https://q85cqy4ld4.execute-api.us-east-1.amazonaws.com/dev/v1"
 
@@ -11,6 +12,25 @@ export const fetchArtists = async (): Promise<Artist[]> => {
         artist_image: artist.artist_image_url,
     }));
 };
+
+export const getArtist = async (id: string): Promise<ArtistDetailed> => {
+    const response = await axios.get(`${API_BASE_URL}/artists/${id}`);
+    const artist = response.data;
+
+    // console.log("at service", artist);
+    return {
+        artist_id: artist[0].artist_id.toString(),
+        artist_name: artist[0].artist_name,
+        artist_image_url: artist[0].artist_image_url,
+        albums: artist[0].albums.map((album: Album) => ({
+            album_id: album.album_id.toString(),
+            album_name: album.album_name,
+            album_year: album.year,
+            genre_name: album.genre_name,
+            album_art_url: album.album_art_url,
+        })),
+    };
+}
 
 export const deleteArtist = async (id: string): Promise<void> => {
     await axios.delete(`${API_BASE_URL}/artists/${id}`);
