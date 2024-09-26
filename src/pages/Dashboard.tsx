@@ -1,7 +1,6 @@
 import AlbumCarousel from "@/components/AlbumCarousel"
 import ArtistCarousel from "@/components/ArtistCarousel"
 import TrackCarousel from "@/components/TrackCarousel"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import MainLayout from "@/layout/MainLayout"
 import { useEffect, useState } from "react"
 import { Artist } from "../types/ArtistTypes"
