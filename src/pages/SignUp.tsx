@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label"
 import {Link, useNavigate} from "react-router-dom"
 import { useState, FormEvent, useEffect } from "react";
 import { useAuth } from "@/context/Auth/AuthContext";
+import { toast } from "@/components/ui/use-toast";
 
 
 function SignUp() {
@@ -31,13 +32,19 @@ function SignUp() {
       if (name.trim() == "" || password == "" || password != confirmPassword) {
         return;
       }
-      signUp(name, password, email)
-        .then((data) => {
-          console.log(data);
-          navigate('/dashboard');
-
-      });
-      console.log(user);
+     
+        try {
+            await signUp(name, password, email);
+            console.log("Sign up successful");
+            navigate('/dashboard');          
+        } catch (error: any) {
+            toast({
+                title: "Error",
+                description: error.message,
+                variant: "destructive"
+              }); 
+            console.error(error); 
+        }
     };
 
     return (

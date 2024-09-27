@@ -28,8 +28,7 @@ const AlbumCard: React.FC<AlbumCardProps> = ({ album }) => {
       <div className="mt-4 text-center">
         <p className="text-lg font-semibold">{album.album_name}</p>
         <p className="text-sm text-gray-500">{album.artist_name}</p>
-        {/* if no artist naem say no} */}
-        <p className="text-sm text-gray-500">{album.artist_name || "No Artist"}</p>
+        <p className="text-sm text-gray-500">{album.genre_name}</p>
         <p className="text-sm text-gray-400 italic">{album.year}</p>
       </div>
     </div>

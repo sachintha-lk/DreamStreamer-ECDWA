@@ -15,6 +15,11 @@ import ArtistViewPage from "./pages/display/ArtistViewPage"
 import Analytics from "./pages/Manage/Analytics"
 import ProtectedRoute from "./components/ProtectedRoute"
 import AlbumViewPage from "./pages/display/AlbumViewPage"
+import DisplayAllArtists from "./pages/display/DisplayAllArtists"
+import DisplayAllAlbums from "./pages/display/DisplayAllAlbums"
+import DisplayAllGenres from "./pages/display/DisplayAllGenres"
+import DisplayAllTracks from "./pages/display/DisplayAllTracks"
+import GenreViewPage from "./pages/display/GenreViewPage"
 // import AdminProtectedRoute from "./components/AdminProtectedRoute"
 
 function App() {
@@ -43,9 +48,16 @@ function App() {
         />
         <Route element={<ProtectedRoute />}>
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="artists/" element={<DisplayAllArtists/>}/>
           <Route path="artists/:id" element={<ArtistViewPage/>}/>
+          
+          <Route path="albums/" element={<DisplayAllAlbums/>}/>
           <Route path="albums/:id" element={<AlbumViewPage/>}/>
-          <Route path="genres/:id" element={<div>Genre View Page</div>}/>
+
+          <Route path="genres/" element={<DisplayAllGenres/>}/>
+          <Route path="genres/:id" element={<GenreViewPage/>}/>
+
+          <Route path="tracks/" element={<DisplayAllTracks/>}/>
 
         </Route>
 

@@ -36,7 +36,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const signUp = useCallback(
-    (name: string, password: string, email: string): Promise<Error | ISignUpResult> => {
+    async (name: string, password: string, email: string): Promise<Error | ISignUpResult> => {
       setLoading(true);
       return new Promise((resolve, reject) => {
         Pool.signUp(
@@ -63,6 +63,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
             } else if (data) {
               setUser(data.user);
               console.log("sign up success", data);
+              signIn(email, password);
               setIsAuthenticated(true);
               checkIfAdmin(data.user);
               fetchUserAttributes(data.user);
