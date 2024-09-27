@@ -143,6 +143,7 @@ const ManageTracks: React.FC = () => {
             }
         } else {
             audioFileURL = existingAudioFileURL;
+            // console.log("Using existing audio file URL:", audioFileURL);
         }
 
         await updateTrack(id, trackName, album_id, audioFileURL);

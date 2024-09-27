@@ -6,11 +6,11 @@ type State = {
   isAuthenticated: boolean;
   isAdmin: boolean;
   attributes: CognitoUserAttribute[] | null;
+  loading: boolean;
   signUp: (name: string, password: string, email: string) => Promise<Error | ISignUpResult>;
   signIn: (username: string, password: string) => Promise<Error | CognitoUserSession>;
   signOut: () => void;
 };
-
 
 const AuthContext = createContext<State | undefined>(undefined);
 

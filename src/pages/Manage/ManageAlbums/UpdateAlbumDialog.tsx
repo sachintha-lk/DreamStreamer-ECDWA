@@ -171,7 +171,6 @@ const UpdateAlbumDialog: React.FC<UpdateAlbumDialogProps> = ({ onUpdate, initial
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
-                        selectedID: {selectedArtistID} defaultID: {initialAlbum?.artist_id} euqal: {selectedArtistID === initialAlbum?.artist_id}
                     </div>
                     <div className="grid w-full max-w-sm items-center gap-1.5">
                         <img src={`${S3_BUCKET_URL}${initialAlbum?.album_art_url}`} alt="Album Art" className="w-20 h-20" />

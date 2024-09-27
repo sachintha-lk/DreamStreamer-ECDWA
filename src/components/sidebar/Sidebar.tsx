@@ -24,7 +24,7 @@ export default function SidebarPlayerView() {
           Discover
         </h2>
         <div className="space-y-2">
-          <Button variant="secondary" className="w-full justify-start" onClick={() => navigate('/dashboard')} >
+          <Button variant="ghost" className="w-full justify-start" onClick={() => navigate('/dashboard')} >
             <Home className="mr-2 h-4 w-4" />
             Home
           </Button>
