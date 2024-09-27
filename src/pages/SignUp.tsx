@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label"
 import {Link, useNavigate} from "react-router-dom"
 import { useState, FormEvent, useEffect } from "react";
 import { useAuth } from "@/context/Auth/AuthContext";
+import { toast } from "@/components/ui/use-toast";
 
 
 function SignUp() {
@@ -31,20 +32,29 @@ function SignUp() {
       if (name.trim() == "" || password == "" || password != confirmPassword) {
         return;
       }
-      signUp(name, password, email)
-        .then((data) => {
-          console.log(data);
-          navigate('/dashboard');
-
-      });
-      console.log(user);
+     
+        try {
+            await signUp(name, password, email);
+            console.log("Sign up successful");
+            navigate('/dashboard');          
+        } catch (error: any) {
+            toast({
+                title: "Error",
+                description: error.message,
+                variant: "destructive"
+              }); 
+            console.error(error); 
+        }
     };
 
     return (
         <div className="w-full lg:grid lg:h-screen lg:grid-cols-2">
           <div className="flex items-center justify-center py-12">
             <div className="mx-auto grid w-[350px] gap-6">
+
               <div className="grid gap-2 text-center">
+              <h1 className="text-4xl font-light mb-5">DreamStreamer™</h1>
+
               <h1 className="text-3xl font-bold">Sign Up</h1>
               </div>
               <form onSubmit={handleSubmit}>
@@ -88,25 +98,9 @@ function SignUp() {
                   <Button type="submit" className="w-full">
                     Sign Up
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  {/* <Button variant="outline" className="w-full">
                     Login with Google
-                  </Button>
-                  <Button variant="outline" className="w-full"
-                  onClick={() => {
-                    user?.getSession((err: Error, session: any) => {
-                          if (err) {
-                            console.error(err);
-                            alert(err);
-                            return;
-                          }
-                          console.log(session.getIdToken().getJwtToken());
-                          alert(session.getIdToken().getJwtToken());
-                        });
-                      }
-                    }
-                  >
-                    Check the user
-                  </Button>
+                  </Button> */}
                 </div>
                 </form>
                 

@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { Artist, ArtistDetailed } from '../types/ArtistTypes';
-import { Album } from '@/types/AlbumTypes';
+// import { Album } from '@/types/AlbumTypes';
 import { getAuthHeaders } from '@/context/Auth/userPool';
 
-const API_BASE_URL= "https://q85cqy4ld4.execute-api.us-east-1.amazonaws.com/dev/v1"
+const API_BASE_URL= import.meta.env.VITE_API_BASE_URL;
 
 export const fetchArtists = async (): Promise<Artist[]> => {
     const headers = await getAuthHeaders();
@@ -19,16 +19,17 @@ export const getArtist = async (id: string): Promise<ArtistDetailed> => {
     const headers = await getAuthHeaders();
     const response = await axios.get(`${API_BASE_URL}/artists/${id}`, headers);
     const artist = response.data;
+    
 
-    // console.log("at service", artist);
+    console.log("at service", artist);
     return {
         artist_id: artist[0].artist_id.toString(),
         artist_name: artist[0].artist_name,
         artist_image_url: artist[0].artist_image_url,
-        albums: artist[0].albums.map((album: Album) => ({
+        albums: artist[0].albums.map((album: any) => ({
             album_id: album.album_id.toString(),
             album_name: album.album_name,
-            album_year: album.year,
+            year: album.album_year,
             genre_name: album.genre_name,
             album_art_url: album.album_art_url,
         })),

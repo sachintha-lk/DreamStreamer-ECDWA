@@ -5,7 +5,7 @@ import { recordPlayEvent } from '@/services/AnalyticsService';
 interface MusicPlayerContextType {
   currentTrack: Track | null;
   isPlaying: boolean;
-  playTrack: (track: Track) => void;
+  playTrack: (track: any) => void;
   pauseTrack: () => void;
   resumeTrack: () => void;
   trackProgress: number;
@@ -53,11 +53,15 @@ export const MusicPlayerProvider = ({ children }: { children: ReactNode }) => {
     };
   }, []);
 
-  const playTrack = (track: Track) => {
+  const playTrack = (track: any) => {
+    console.log('playTrack', track);
+    
     const audio = audioRef.current;
+    console.log('playTradck', track);
     if (currentTrack?.id !== track.id) {
       setCurrentTrack(track);
       audio.src = track.audioFileURL;
+      console.log('audio.src', audio.src);
       audio.load();
       recordPlayEvent(track.id);
     }

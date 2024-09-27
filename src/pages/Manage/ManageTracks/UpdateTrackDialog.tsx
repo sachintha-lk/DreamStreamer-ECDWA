@@ -80,9 +80,9 @@ const UpdateTrackDialog: React.FC<UpdateTrackDialogProps> = ({ onUpdate, initial
                         Update Track with id: {initialTrack?.id}
                     </DialogDescription>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="name" className="text-right">
+                <div className="grid gap-4">
+                    <div className="">
+                        <Label htmlFor="name" className="text-right mb-7">
                             Name
                         </Label>
                         <Input
@@ -100,7 +100,7 @@ const UpdateTrackDialog: React.FC<UpdateTrackDialogProps> = ({ onUpdate, initial
                 </div>
                 <div>
                 
-                <Label htmlFor="name" className="text-right">Album </Label>
+                <Label htmlFor="name" className="text-right mb-4">Album </Label>
             
                 <Select onValueChange={(value) => setSelectedAlbumID(value)} defaultValue={String(initialTrack?.album_id)}>
                     <SelectTrigger className="w-[180px]">

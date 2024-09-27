@@ -7,6 +7,8 @@ import { toast } from '@/components/ui/use-toast';
 import { AnalyticsData } from '@/types/AnalyticsTypes';
 import { Button } from '@/components/ui/button';
 
+const S3_BUCKET_URL = import.meta.env.VITE_S3_BUCKET_URL;
+
 function Analytics() {
   const [analytics, setAnalytics] = useState<AnalyticsData>({
     latest_plays: [],
@@ -121,78 +123,96 @@ function Analytics() {
           </CardContent>
         </Card>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-2 mt-8">
+      <div>
+        <h1 className='text-2xl font-semibold mt-8'>Music Play Statistics</h1>
+        <p className='text-muted-foreground'>
+          Statistics about music play in DreamStreamer
+        </p>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-2">
 
-
-        {/* Most Played Genres */}
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">Most Played Genres</CardTitle>
+        <Card className=" shadow-sm">
+          <CardHeader className="flex items-center justify-between pb-2">
+            <CardTitle className="text-base font-semibold mb-3">Most Played Genres</CardTitle>
           </CardHeader>
           <CardContent>
-        <ul className="mt-2">
-          {analytics.most_played_genres.map((genre) => (
-            <li key={genre.genre_name} className="flex justify-between">
-          <span>{genre.genre_name}</span>
-          <span>{genre.total_plays}</span>
-            </li>
-          ))}
-        </ul>
+            <ul className="space-y-3">
+              {analytics.most_played_genres.map((genre) => (
+                <li key={genre.genre_name} className="flex justify-between text-sm border-b pb-2">
+                  <span>{genre.genre_name}</span>
+                  <span className="font-medium text-xl">{genre.total_plays}</span>
+                </li>
+              ))}
+            </ul>
           </CardContent>
         </Card>
 
-        {/* Most Played Tracks */}
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">Most Played Tracks</CardTitle>
+      
+
+        <Card className=" shadow-sm">
+          <CardHeader className="flex items-center justify-between pb-2">
+            <CardTitle className="text-base font-semibold mb-3">Most Played Artists</CardTitle>
           </CardHeader>
           <CardContent>
-        <ul className="mt-2">
-          {analytics.most_played_tracks.map((track) => (
-            <li key={track.track_name} className="flex justify-between">
-          <span>{track.track_name}</span>
-          <span>{track.total_plays}</span>
-            </li>
-          ))}
-        </ul>
+            <ul className="space-y-3">
+              {analytics.most_played_artists.map((artist) => (
+                <li key={artist.artist_name} className="flex justify-between items-center text-sm border-b pb-2">
+                  <div className="flex items-center space-x-2">
+                    <img src={`${S3_BUCKET_URL}${artist.artist_image_url}`} alt={artist.artist_name} className="w-8 h-8 rounded-full" />
+                    <span>{artist.artist_name}</span>
+                  </div>
+                  <span className="font-medium text-xl">{artist.total_plays}</span>
+                </li>
+              ))}
+            </ul>
           </CardContent>
         </Card>
 
-        {/* Most Played Artists */}
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">Most Played Artists</CardTitle>
+        <Card className="shadow-sm">
+          <CardHeader className="flex items-center justify-between pb-2">
+            <CardTitle className="text-base font-semibold mb-3">Most Played Albums</CardTitle>
           </CardHeader>
           <CardContent>
-        <ul className="mt-2">
-          {analytics.most_played_artists.map((artist) => (
-            <li key={artist.artist_name} className="flex justify-between">
-            <img src={artist.artist_image_url} alt={artist.artist_name} className="w-8 h-8 rounded-full" />
-          <span>{artist.artist_name}</span>
-          <span>{artist.total_plays}</span>
-            </li>
-          ))}
-        </ul>
+            <ul className="space-y-3">
+              {analytics.most_played_albums.map((album) => (
+                <li key={album.album_name} className="flex justify-between text-sm border-b pb-2">
+                  <img src={`${S3_BUCKET_URL}${album.album_art_url}`} className="w-8 h-8" />
+                  <span>{album.album_name}</span>
+                  <img src={`${S3_BUCKET_URL}${album.artist_image_url}`} className="w-8 h-8 rounded-full" />
+                  
+                  <span className="font-medium text-xl">{album.total_plays}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+        <Card className=" shadow-sm">
+          <CardHeader className="flex items-center justify-between pb-2">
+            <CardTitle className="text-base font-semibold mb-3">Most Played Tracks</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-3">
+              {analytics.most_played_tracks.map((track) => (
+                <li key={track.track_name} className="flex justify-between text-sm border-b pb-2">
+                  <span>
+                  <img src={`${S3_BUCKET_URL}${track.album_art_url}`} className="w-8 h-8" />
+                  </span>
+                
+                  <span className='overflow-ellipsis'>{track.track_name}</span>
+                  <span>
+                    <span>{}</span>
+                    <img src={`${S3_BUCKET_URL}${track.artist_image_url}`} className="w-8 h-8 rounded-full" />
+                  </span>
+                  <span className="font-medium text-xl">{track.total_plays}</span>
+                </li>
+              ))}
+            </ul>
           </CardContent>
         </Card>
 
-        {/* Most Played Albums */}
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">Most Played Albums</CardTitle>
-          </CardHeader>
-          <CardContent>
-        <ul className="mt-2">
-          {analytics.most_played_albums.map((album) => (
-            <li key={album.album_name} className="flex justify-between">
-          <span>{album.album_name}</span>
-          <span>{album.total_plays}</span>
-            </li>
-          ))}
-        </ul>
-          </CardContent>
-        </Card>
-      </div>    
+        </div>
+
+      </div>
+   
     </MainLayout>
     
   );

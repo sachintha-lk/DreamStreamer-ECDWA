@@ -1,5 +1,6 @@
 import React from 'react';
 import { Album } from '../types/AlbumTypes';
+import { Link } from 'react-router-dom';
 
 export type AlbumCardProps = {
     album: Album;
@@ -9,6 +10,7 @@ const S3_BUCKET_URL = import.meta.env.VITE_S3_BUCKET_URL;
 
 const AlbumCard: React.FC<AlbumCardProps> = ({ album }) => {
   return (
+    <Link to={`/albums/${album.album_id}`}>
     <div className="album-card relative p-2 rounded-lg">
       <div className="relative">
         {album.album_art_url ? (
@@ -26,9 +28,11 @@ const AlbumCard: React.FC<AlbumCardProps> = ({ album }) => {
       <div className="mt-4 text-center">
         <p className="text-lg font-semibold">{album.album_name}</p>
         <p className="text-sm text-gray-500">{album.artist_name}</p>
+        <p className="text-sm text-gray-500">{album.genre_name}</p>
         <p className="text-sm text-gray-400 italic">{album.year}</p>
       </div>
     </div>
+    </Link>
   );
 };
 
