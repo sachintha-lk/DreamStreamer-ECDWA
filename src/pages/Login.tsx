@@ -43,7 +43,10 @@ function Login() {
         <div className="w-full lg:grid lg:h-screen lg:grid-cols-2">
           <div className="flex items-center justify-center py-12">
             <div className="mx-auto grid w-[350px] gap-6">
+              
               <div className="grid gap-2 text-center">
+              <h1 className="text-4xl font-light mb-5">DreamStreamer™</h1>
+
               <h1 className="text-3xl font-bold">Login</h1>
 
                
@@ -79,9 +82,9 @@ function Login() {
                   <Button type="submit" className="w-full">
                     Login
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  {/* <Button variant="outline" className="w-full">
                     Login with Google
-                  </Button>
+                  </Button> */}
 
                  
                 </div>

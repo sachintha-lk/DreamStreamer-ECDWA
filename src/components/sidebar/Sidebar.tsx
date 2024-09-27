@@ -1,11 +1,18 @@
 import { Button } from "@/components/ui/button"
-import { Home, Search, Mic2, DiscAlbum, AudioLines, Music, ChartAreaIcon } from "lucide-react"
-// import auth context and check if user is admin
+import { 
+  Home, 
+  // Search,
+  Mic2, 
+  DiscAlbum, 
+  AudioLines, 
+  Music, 
+  ChartAreaIcon 
+} from "lucide-react"
+
 import { useAuth } from '@/context/Auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function SidebarPlayerView() {
-    // get user from auth context
     const { isAdmin } = useAuth();
 
     const navigate = useNavigate();
@@ -21,10 +28,10 @@ export default function SidebarPlayerView() {
             <Home className="mr-2 h-4 w-4" />
             Home
           </Button>
-          <Button variant="ghost" className="w-full justify-start">
+          {/* <Button variant="ghost" className="w-full justify-start">
             <Search className="mr-2 h-4 w-4" />
             Search
-          </Button>
+          </Button> */}
           <Button variant="ghost" className="w-full justify-start">
             <Mic2 className="mr-2 h-4 w-4" />
              Artists
