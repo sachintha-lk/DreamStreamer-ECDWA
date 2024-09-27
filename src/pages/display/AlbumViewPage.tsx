@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { PlayIcon } from 'lucide-react';
 import { MusicPlayerContext } from '@/context/MusicPlayer/MusicPlayerContext';
 import { Track } from '@/types/TrackTypes';
+import { Button } from '@/components/ui/button';
 // import { fetchTracks } from '@/services/TrackService';
 
 
@@ -97,6 +98,9 @@ const AlbumViewPage = () => {
           <p className="text-gray-600">
             {album.artist_name} • {album.genre_name} • {album.year}
           </p>
+          <div className="mt-4">
+            <Button variant={"default"} className='font-semibold'>Purchase Album</Button>
+          </div>
         </div>
 
         <div className="mt-10">
