@@ -1,4 +1,4 @@
-# Dreamstreamer - Music application with React + AWS
+# DreamStreamer - Music application with React + AWS
 ![main](https://github.com/user-attachments/assets/a548e4fa-59e9-46ab-b7ab-70115fe0ea32)
 
 ## Overview
